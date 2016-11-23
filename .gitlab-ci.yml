@@ -9,9 +9,9 @@ build:
     - tags
   script:
     - docker build --pull --force-rm=true --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH} .
-    - docker push registry.timmertech.nl/${CI_PROJECT_PATH}
+    - docker push $(cat REPOSITORY)/${CI_PROJECT_PATH}
     # Remove from docker host
-    - docker rmi registry.timmertech.nl/${CI_PROJECT_PATH}
+    - docker rmi $(cat REPOSITORY)/${CI_PROJECT_PATH}
 
 release:
   stage: docker
@@ -21,6 +21,6 @@ release:
     - tags
   script:
     - docker build --pull --force-rm=true --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH:$(cat VERSION) .
-    - docker push registry.timmertech.nl/${CI_PROJECT_PATH}:$(cat VERSION)
+    - docker push $(cat REPOSITORY)/${CI_PROJECT_PATH}:$(cat VERSION)
     # Remove from docker host
-    - docker rmi registry.timmertech.nl/${CI_PROJECT_PATH}:$(cat VERSION)
+    - docker rmi $(cat REPOSITORY)/${CI_PROJECT_PATH}:$(cat VERSION)

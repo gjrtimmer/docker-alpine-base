@@ -50,3 +50,11 @@ clean-release:
     - tags
   script:
     - docker rmi $(cat REPOSITORY)/${CI_PROJECT_PATH}:$(cat VERSION)
+    
+trigger_build:
+  stage: deploy
+  tags:
+    - shell
+  script:
+    # Trigger alpine-redis
+    - "curl -X POST -F token=bbd2dcdb2bcac6cda10e83d340be2f -F ref=master https://gitlab.timmertech.nl/api/v3/projects/4/trigger/builds"

@@ -1,5 +1,6 @@
 .git
 .gitignore
+.gitlab-ci.yml
 CHANGELOG.md
 LICENSE
 Makefile

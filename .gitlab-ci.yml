@@ -60,3 +60,12 @@ alpine-redis:
     - tags
   script:
     - curl -s -X POST -F token=bbd2dcdb2bcac6cda10e83d340be2f -F ref=master https://gitlab.timmertech.nl/api/v3/projects/4/trigger/builds > /dev/null
+
+alpine-postgres:
+  stage: triggers
+  tags:
+    - shell
+  except:
+    - tags
+  script:
+    - curl -s -X POST -F token=057a8c4eefbdc9b9a9d146a5794169 -F ref=master https://gitlab.timmertech.nl/api/v3/projects/6/trigger/builds > /dev/null

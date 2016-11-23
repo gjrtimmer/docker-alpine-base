@@ -10,6 +10,8 @@ build:
   script:
     - docker build --pull --force-rm=true --tag=$(cat REPOSITORY)/docker/alpine-base .
     - docker push registry.timmertech.nl/docker/alpine-base
+    # Remove from docker host
+    - docker rmi registry.timmertech.nl/docker/alpine-base
 
 release:
   stage: docker
@@ -20,3 +22,5 @@ release:
   script:
     - docker build --pull --force-rm=true --tag=$(cat REPOSITORY)/docker/alpine-base:$(cat VERSION) .
     - docker push registry.timmertech.nl/docker/alpine-base:$(cat VERSION)
+    # Remove from docker host
+    - docker rmi registry.timmertech.nl/docker/alpine-base:$(cat VERSION)

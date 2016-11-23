@@ -8,7 +8,7 @@ build:
   except:
     - tags
   script:
-    - docker build --tag=$(shell cat REPOSITORY)/docker/alpine-base .
+    - docker build --rm --tag=$(shell cat REPOSITORY)/docker/alpine-base .
     - docker push registry.timmertech.nl/docker/alpine-base
 
 release:

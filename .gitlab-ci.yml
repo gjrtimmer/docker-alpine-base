@@ -1,0 +1,21 @@
+stages:
+  - build
+  
+build:
+  stage: build
+  tags: 
+    - shell
+  except:
+    - tags
+  script:
+    - docker build --tag=$(shell cat REPOSITORY)/docker/alpine-base .
+    - docker push registry.timmertech.nl/docker/alpine-base
+
+release:
+  stage: build
+  tags: 
+    - shell
+  only:
+    - tags
+  script:
+    - docker build --tag=$(shell cat REPOSITORY)/docker/alpine-base:$(shell cat VERSION) .

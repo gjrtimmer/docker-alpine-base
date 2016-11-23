@@ -1,21 +1,22 @@
 stages:
-  - build
+  - docker
   
 build:
-  stage: build
+  stage: docker
   tags: 
     - shell
   except:
     - tags
   script:
-    - docker build --rm --tag=$(cat REPOSITORY)/docker/alpine-base .
+    - docker build --pull --force-rm=true --tag=$(cat REPOSITORY)/docker/alpine-base .
     - docker push registry.timmertech.nl/docker/alpine-base
 
 release:
-  stage: build
+  stage: docker
   tags: 
     - shell
   only:
     - tags
   script:
-    - docker build --tag=$(cat REPOSITORY)/docker/alpine-base:$(cat VERSION) .
+    - docker build --pull --force-rm=true --tag=$(cat REPOSITORY)/docker/alpine-base:$(cat VERSION) .
+    - docker push registry.timmertech.nl/docker/alpine-base:$(cat VERSION)

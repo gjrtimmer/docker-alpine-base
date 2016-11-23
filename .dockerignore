@@ -2,4 +2,7 @@
 .gitignore
 CHANGELOG.md
 LICENSE
+Makefile
 README.md
+REPOSITORY
+VERSION

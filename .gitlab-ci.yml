@@ -18,7 +18,7 @@ release:
   only:
     - tags
   script:
-    - docker build --pull --force-rm=true --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH:$(cat VERSION) .
+    - docker build --pull --force-rm=true --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH}:$(cat VERSION) .
 
 deploy:
   stage: deploy

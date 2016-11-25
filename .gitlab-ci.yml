@@ -25,7 +25,7 @@ release:
   only:
     - tags
   script:
-    - docker tag $(cat REPOSITORY)/${CI_PROJECT_PATH} $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME} .
+    - docker tag $(cat REPOSITORY)/${CI_PROJECT_PATH} $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
     - docker push $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
     
 clean:

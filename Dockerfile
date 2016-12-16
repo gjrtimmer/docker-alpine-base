@@ -2,12 +2,16 @@ FROM alpine:3.4
 MAINTAINER G.J.R. Timmer <gjr.timmer@gmail.com>
 
 ARG S6_OVERLAY_VERSION=v1.18.1.5
+ARG BUILD_DATE
 ARG VCS_REF
 
-LABEL 	nl.timmertech.vendor=timmertech.nl \
-		nl.timmertech.vcs-url="https://github.com/GJRTimmer/docker-alpine-base.git" \
-		nl.timmertech.vcs-ref=${VCS_REF} \
-		nl.timmertech.license=MIT
+LABEL \
+	nl.timmertech.build-date=${BUILD_DATE} \
+	nl.timmertech.name=alpine-base \
+	nl.timmertech.vendor=timmertech.nl \
+	nl.timmertech.vcs-url="https://github.com/GJRTimmer/docker-alpine-base.git" \
+	nl.timmertech.vcs-ref=${VCS_REF} \
+	nl.timmertech.license=MIT
 
 # Terminate container if init scripts fails
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2

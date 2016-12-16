@@ -9,7 +9,7 @@ build:
   tags: 
     - shell
   script:
-    - docker build --pull --force-rm=true --build-arg VCS_REF=`git rev-parse --short HEAD` --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH} .
+    - docker build --pull --force-rm=true --build-arg VCS_REF=`git rev-parse --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` --short HEAD` --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH} .
 
 deploy:
   stage: deploy

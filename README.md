@@ -11,7 +11,7 @@
 
 # Docker Registries
 
- - ```datacore/docker-alpine-base:latest``` (docker.com)
+ - ```datacore/alpine-base:latest``` (docker.com)
  - ```registry.timmertech.nl/docker/alpine-base:latest``` (registry.timmertech.nl)
 
 
@@ -26,12 +26,12 @@
 ## Install from docker hub
 Download:
 ```bash
-docker pull datacore/docker-alpine-base:latest
+docker pull datacore/alpine-base:latest
 ```
 
 Build:
 ```bash
-docker build -t datacore/docker-alpine-base https://github.com/GJRTimmer/docker-alpine-base
+docker build -t datacore/alpine-base https://github.com/GJRTimmer/docker-alpine-base
 ```
 
 
@@ -44,5 +44,5 @@ docker pull registry.timmertech.nl/docker/alpine-base:latest
 
 Build:
 ```bash
-docker build -t datacore/docker-alpine-base https://gitlab.timmertech.nl/docker/alpine-base
+docker build -t datacore/alpine-base https://gitlab.timmertech.nl/docker/alpine-base
 ```

@@ -9,7 +9,6 @@ build:
   tags: 
     - shell
   script:
-    - echo '"docker build: $(cat REPOSITORY)/${CI_PROJECT_PATH}"'
     - docker build --pull --force-rm=true --build-arg VCS_REF=`git rev-parse --short HEAD` --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH} .
 
 deploy:
@@ -17,7 +16,6 @@ deploy:
   tags:
     - shell
   script:
-    - echo '"docker push: $(cat REPOSITORY)/${CI_PROJECT_PATH}"'
     - docker push $(cat REPOSITORY)/${CI_PROJECT_PATH}
 
 release:
@@ -27,9 +25,7 @@ release:
   only:
     - tags
   script:
-    - echo '"Tagging image: $(cat REPOSITORY)/${CI_PROJECT_PATH} > $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}"'
     - docker tag $(cat REPOSITORY)/${CI_PROJECT_PATH} $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
-    - echo '"docker push: $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}"'
     - docker push $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
     
 clean:

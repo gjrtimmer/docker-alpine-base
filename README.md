@@ -44,5 +44,5 @@ docker pull registry.timmertech.nl/docker/alpine-base:latest
 
 Build:
 ```bash
-docker build -t datacore/gitlab-runner https://gitlab.timmertech.nl/docker/alpine-base
+docker build -t datacore/docker-alpine-base https://gitlab.timmertech.nl/docker/alpine-base
 ```

@@ -9,13 +9,13 @@
 - [Docker Registries](#docker-registries)
 - [Source Repositories](#source-repositories)
 - [Installation](#installation)
-  - [Docker Hub](#install-from-docker-hub)
+  - [DockerHub](#install-from-dockerhub)
   - [TimmerTech](#install-from-timmertech)
 
 
 # Docker Registries
 
- - ```datacore/alpine-base:latest``` (docker.com)
+ - ```datacore/alpine-base:latest``` (DockerHub)
  - ```registry.timmertech.nl/docker/alpine-base:latest``` (registry.timmertech.nl)
 
 
@@ -27,7 +27,7 @@
 
 # Installation
 
-## Install from docker hub
+## Install from DockerHub
 Download:
 ```bash
 docker pull datacore/alpine-base:latest

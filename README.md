@@ -21,8 +21,8 @@
 
 # Source Repositories
 
-- [https://github.com/GJRTimmer/docker-alpine-base](github.com)
-- [https://gitlab.timmertech.nl/docker/alpine-base.git](gitlab.timmertech.nl)
+- [github.com](https://github.com/GJRTimmer/docker-alpine-base)
+- [gitlab.timmertech.nl](https://gitlab.timmertech.nl/docker/alpine-base)
 
 
 # Installation

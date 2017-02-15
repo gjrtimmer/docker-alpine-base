@@ -1,40 +1,68 @@
 stages:
   - build
   - deploy
-  - triggers
   - clean
+  - triggers
   
-build:
+build:latest:
   stage: build
   tags: 
     - shell
   script:
-    - docker build --pull --force-rm=true --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH} .
+    - docker build --pull --force-rm=true 
+        --build-arg VCS_REF=`git rev-parse --short HEAD` 
+        --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
+        --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH} .
 
-deploy:
+build:branches:
+  stage: build
+  tags: 
+    - shell
+  except:
+    - master
+  script:
+    - docker build --pull --force-rm=true 
+        --build-arg VCS_REF=`git rev-parse --short HEAD` 
+        --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
+        --tag=$(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME} .
+        
+deploy:latest:
   stage: deploy
   tags:
     - shell
   script:
     - docker push $(cat REPOSITORY)/${CI_PROJECT_PATH}
 
-release:
+deploy:branches:
   stage: deploy
   tags:
     - shell
-  only:
-    - tags
+  except:
+    - master
   script:
-    - docker tag $(cat REPOSITORY)/${CI_PROJECT_PATH} $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
     - docker push $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
     
-clean:
+clean:latest:
   stage: clean
   tags:
     - shell
+  only:
+    - master
   script:
-    - 'if [ ! -z $(docker images -q $(cat REPOSITORY)/${CI_PROJECT_PATH}) ]; then echo "Removing: $(cat REPOSITORY)/${CI_PROJECT_PATH}"; docker rmi $(cat REPOSITORY)/${CI_PROJECT_PATH}; fi'
-    - 'if [ ! -z $(docker images -q $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}) ]; then echo "Removing: $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}"; docker rmi $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}; fi'
+    -   if [ ! -z $(docker images -q $(cat REPOSITORY)/${CI_PROJECT_PATH}) ]; then 
+            docker rmi $(cat REPOSITORY)/${CI_PROJECT_PATH};
+        fi
+
+clean:branches:
+  stage: clean
+  tags:
+    - shell
+  except:
+    - master
+  script:
+    -   if [ ! -z $(docker images -q $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}) ]; then 
+            docker rmi $(cat REPOSITORY)/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME};
+        fi
 
 alpine-glibc:
   stage: triggers

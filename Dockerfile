@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 MAINTAINER G.J.R. Timmer <gjr.timmer@gmail.com>
 
 ARG S6_OVERLAY_VERSION=v1.19.1.1

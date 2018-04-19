@@ -33,6 +33,8 @@ alpine-glibc:
   stage: triggers
   except:
     - tags
+  before_script:
+    - apk add --update --no-cache curl
   script:
     - curl -X POST -F token=71b1077ae91d5c69f6a46374cd80e9 -F ref=master https://gitlab.timmertech.nl/api/v3/projects/18/trigger/builds > /dev/null
     
@@ -40,6 +42,8 @@ alpine-redis:
   stage: triggers
   except:
     - tags
+  before_script:
+    - apk add --update --no-cache curl
   script:
     - curl -s -X POST -F token=bbd2dcdb2bcac6cda10e83d340be2f -F ref=master https://gitlab.timmertech.nl/api/v3/projects/4/trigger/builds > /dev/null
 
@@ -47,5 +51,7 @@ alpine-postgres:
   stage: triggers
   except:
     - tags
+  before_script:
+    - apk add --update --no-cache curl
   script:
     - curl -s -X POST -F token=057a8c4eefbdc9b9a9d146a5794169 -F ref=master https://gitlab.timmertech.nl/api/v3/projects/6/trigger/builds > /dev/null

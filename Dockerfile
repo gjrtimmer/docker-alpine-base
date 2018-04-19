@@ -17,7 +17,7 @@ LABEL \
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 RUN apk add --update --no-cache curl bash tar gzip file ca-certificates && \
-	curl -sSL -o /tmp/s6-overlay-amd64.tar.gz https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz && \
+	curl -SL -o /tmp/s6-overlay-amd64.tar.gz https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz && \
 	tar -xzf /tmp/s6-overlay-amd64.tar.gz -C /
 
 ENTRYPOINT ["/init"]

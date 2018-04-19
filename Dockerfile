@@ -1,6 +1,5 @@
 FROM alpine:3.7
 
-ARG S6_OVERLAY_VERSION=v1.21.4.0
 ARG BUILD_DATE
 ARG VCS_REF
 
@@ -13,7 +12,7 @@ LABEL \
 	nl.timmertech.vcs-ref=${VCS_REF} \
 	nl.timmertech.license=MIT
 
-# Terminate container if init scripts fails
+ENV S6_OVERLAY_VERSION=v1.21.4.0
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 RUN apk add --update --no-cache curl bash tar gzip file ca-certificates && \

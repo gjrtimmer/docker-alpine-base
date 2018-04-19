@@ -16,8 +16,8 @@ LABEL \
 # Terminate container if init scripts fails
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
-RUN apk add --update --no-cache curl bash tar gzip file ca-certificates && \
-	curl -sSL https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz | tar xfz - -C / && \
+RUN apk add --update --no-cache curl bash tar gzip file ca-certificates
+RUN curl -sSL https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz | tar xfz - -C / && \
 	apk del curl
 	
 ENTRYPOINT ["/init"]

@@ -1,11 +1,11 @@
-FROM alpine:3.6
-MAINTAINER G.J.R. Timmer <gjr.timmer@gmail.com>
+FROM alpine:3.7
 
-ARG S6_OVERLAY_VERSION=v1.20.0.0
+ARG S6_OVERLAY_VERSION=v1.21.4.0
 ARG BUILD_DATE
 ARG VCS_REF
 
 LABEL \
+	maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
 	nl.timmertech.build-date=${BUILD_DATE} \
 	nl.timmertech.name=alpine-base \
 	nl.timmertech.vendor=timmertech.nl \

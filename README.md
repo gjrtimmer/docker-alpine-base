@@ -9,15 +9,11 @@
 - [Docker Registries](#docker-registries)
 - [Source Repositories](#source-repositories)
 - [Installation](#installation)
-  - [DockerHub](#install-from-dockerhub)
-  - [TimmerTech](#install-from-timmertech)
-
 
 # Docker Registries
 
  - ```datacore/alpine-base:latest```
  - ```registry.timmertech.nl/docker/alpine-base:latest```
-
 
 # Source Repositories
 
@@ -40,7 +36,9 @@ docker build -t datacore/alpine-base https://github.com/GJRTimmer/docker-alpine-
 ```
 </p>
 </details>
+
 <br/>
+
 <details>
 <summary>Install from DockerHub</summary>
 <p>

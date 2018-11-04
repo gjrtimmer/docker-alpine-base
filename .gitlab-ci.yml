@@ -1,6 +1,3 @@
-variables:
-  REPOSITORY: registry.timmertech.nl
-
 stages:
   - build
   - triggers

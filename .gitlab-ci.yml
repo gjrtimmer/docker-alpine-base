@@ -5,7 +5,7 @@ stages:
   - build
   - triggers
   
-build:latest:
+docker:latest:
   stage: build
   only: 
     - master
@@ -17,7 +17,7 @@ build:latest:
         --tag=${REPOSITORY}/${CI_PROJECT_PATH} .
     - docker push ${REPOSITORY}/${CI_PROJECT_PATH}
 
-build:release:
+docker:release:
   stage: build
   only:
     - tags

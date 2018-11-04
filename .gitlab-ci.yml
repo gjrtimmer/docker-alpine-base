@@ -14,6 +14,7 @@ docker:latest:
     - docker build --pull --force-rm=true --squash 
         --build-arg VCS_REF=`git rev-parse --short HEAD` 
         --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
+        --squash \
         --tag=${REPOSITORY}/${CI_PROJECT_PATH} .
     - docker push ${REPOSITORY}/${CI_PROJECT_PATH}
 
@@ -26,8 +27,18 @@ docker:release:
     - docker build --pull --force-rm=true --squash
         --build-arg VCS_REF=`git rev-parse --short HEAD` 
         --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
+        --squash 
         --tag=${REPOSITORY}/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME} .
     - docker push ${REPOSITORY}/${CI_PROJECT_PATH}:${CI_BUILD_REF_NAME}
+
+alpine-redis:
+  stage: triggers
+  except:
+    - tags
+  before_script:
+    - apk add --update --no-cache curl
+  script:
+    - curl -s X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v4/projects/2/trigger/pipeline > /dev/null
 
 #alpine-glibc:
 #  stage: triggers
@@ -38,15 +49,6 @@ docker:release:
 #  script:
 #    - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v3/projects/18/trigger/builds > /dev/null
 #    
-#alpine-redis:
-#  stage: triggers
-#  except:
-#    - tags
-#  before_script:
-#    - apk add --update --no-cache curl
-#  script:
-#    - curl -s -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v3/projects/4/trigger/builds > /dev/null
-#
 #alpine-postgres:
 #  stage: triggers
 #  except:

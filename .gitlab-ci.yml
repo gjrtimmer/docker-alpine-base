@@ -36,7 +36,7 @@ alpine-redis:
   before_script:
     - apk add --update --no-cache curl
   script:
-    - curl -X POST -F token=b7e5899e5a7919650907529b616600 -F ref=master https://gitlab.timmertech.nl/api/v4/projects/2/trigger/pipeline
+    - curl -X POST -F token=${CI_JOB_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/2/trigger/pipeline
 
 #alpine-glibc:
 #  stage: triggers

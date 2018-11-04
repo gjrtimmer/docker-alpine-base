@@ -8,11 +8,11 @@ LABEL \
 	nl.timmertech.build-date=${BUILD_DATE} \
 	nl.timmertech.name=alpine-base \
 	nl.timmertech.vendor=timmertech.nl \
-	nl.timmertech.vcs-url="https://github.com/GJRTimmer/docker-alpine-base.git" \
+	nl.timmertech.vcs-url="https://gitlab.timmertech.nl/docker/alpine-base.git" \
 	nl.timmertech.vcs-ref=${VCS_REF} \
 	nl.timmertech.license=MIT
 
-ENV S6_OVERLAY_VERSION=v1.21.4.0
+ENV S6_OVERLAY_VERSION=v1.21.7.0
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 RUN apk upgrade --update && \

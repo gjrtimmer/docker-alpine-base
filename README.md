@@ -39,7 +39,7 @@ docker build -t datacore/alpine-base https://github.com/GJRTimmer/docker-alpine-
 <br/>
 
 <details>
-<summary>Install from DockerHub</summary>
+<summary>Install from TimmerTech</summary>
 <p>
 
 Download:

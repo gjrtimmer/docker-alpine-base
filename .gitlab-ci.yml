@@ -35,15 +35,15 @@ alpine-redis:
   script:
     - curl -s -X POST -F token=${REDIS_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/2/trigger/pipeline > /dev/null
 
-#alpine-glibc:
-#  stage: triggers
-#  except:
-#    - tags
-#  before_script:
-#    - apk add --update --no-cache curl
-#  script:
-#    - curl -X POST -F token=$CI_BUILD_TOKEN -F ref=master https://gitlab.timmertech.nl/api/v3/projects/18/trigger/builds > /dev/null
-#    
+alpine-glibc:
+  stage: triggers
+  except:
+    - tags
+  before_script:
+    - apk add --update --no-cache curl
+  script:
+    - curl -s -X POST -F token=${GLIBC_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/3/trigger/pipeline > /dev/null
+   
 #alpine-postgres:
 #  stage: triggers
 #  except:

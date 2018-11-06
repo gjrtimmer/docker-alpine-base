@@ -52,3 +52,13 @@ alpine-postgres:
     - apk add --update --no-cache curl
   script:
     - curl -s -X POST -F token=${POSTGRESQL_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/4/trigger/pipeline > /dev/null
+
+dockerhub:latest:
+  stage: triggers
+  except:
+    - tags
+  before_script:
+    - apk add --update --no-cache curl
+  script:
+    - curl -s -H 'Content-Type:application/json' --data '{"build":true}' -X POST https://registry.hub.docker.com/u/datacore/alpine-base/trigger/2db3c4d8-240d-44ef-8191-1d7569faf76c/
+  when: manual

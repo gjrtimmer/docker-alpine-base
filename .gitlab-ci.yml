@@ -27,15 +27,6 @@ docker:release:
         --tag=${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_NAME} .
     - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_NAME}
 
-alpine-redis:
-  stage: triggers
-  except:
-    - tags
-  before_script:
-    - apk add --update --no-cache curl
-  script:
-    - curl -s -X POST -F token=${REDIS_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/2/trigger/pipeline > /dev/null
-
 alpine-glibc:
   stage: triggers
   except:
@@ -44,8 +35,17 @@ alpine-glibc:
     - apk add --update --no-cache curl
   script:
     - curl -s -X POST -F token=${GLIBC_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/3/trigger/pipeline > /dev/null
-   
-alpine-postgres:
+
+redis:
+  stage: triggers
+  except:
+    - tags
+  before_script:
+    - apk add --update --no-cache curl
+  script:
+    - curl -s -X POST -F token=${REDIS_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/2/trigger/pipeline > /dev/null
+
+postgres:
   stage: triggers
   except:
     - tags
@@ -53,6 +53,15 @@ alpine-postgres:
     - apk add --update --no-cache curl
   script:
     - curl -s -X POST -F token=${POSTGRESQL_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/4/trigger/pipeline > /dev/null
+    
+gitlab-cleaner:
+  stage: triggers
+  except:
+    - tags
+  before_script:
+    - apk add --update --no-cache curl
+  script:
+    - curl -s -X POST -F token=${GITLAB_CLEANER_TOKEN} -F ref=master ttps://gitlab.timmertech.nl/api/v4/projects/7/trigger/pipeline > /dev/null
 
 dockerhub:latest:
   stage: dockerhub

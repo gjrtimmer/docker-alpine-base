@@ -61,7 +61,7 @@ dockerhub:latest:
   before_script:
     - apk add --update --no-cache curl
   script:
-    - curl -s -H 'Content-Type:application/json' --data '{"build":true}' -X POST https://registry.hub.docker.com/u/datacore/redis/trigger/${DOCKERHUB_TOKEN}/ > /dev/null
+    - curl -s -H 'Content-Type:application/json' --data '{"build":true}' -X POST https://registry.hub.docker.com/u/datacore/alpine-base/trigger/${DOCKERHUB_TOKEN}/ > /dev/null
   when: manual
 
 dockerhub:release:
@@ -71,5 +71,5 @@ dockerhub:release:
   before_script:
     - apk add --update --no-cache curl
   script:
-    - curl -s -H 'Content-Type:application/json' --data "{\"source_type\":\"Tag\",\"source_name\":\"${CI_COMMIT_REF_NAME}\"}" -X POST https://registry.hub.docker.com/u/datacore/redis/trigger/${DOCKERHUB_TOKEN}/ > /dev/null
+    - curl -s -H 'Content-Type:application/json' --data "{\"source_type\":\"Tag\",\"source_name\":\"${CI_COMMIT_REF_NAME}\"}" -X POST https://registry.hub.docker.com/u/datacore/alpine-base/trigger/${DOCKERHUB_TOKEN}/ > /dev/null
   when: manual

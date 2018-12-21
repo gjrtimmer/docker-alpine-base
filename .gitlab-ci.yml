@@ -61,7 +61,7 @@ gitlab-cleaner:
   before_script:
     - apk add --update --no-cache curl
   script:
-    - curl -s -X POST -F token=${GITLAB_CLEANER_TOKEN} -F ref=master ttps://gitlab.timmertech.nl/api/v4/projects/7/trigger/pipeline > /dev/null
+    - curl -s -X POST -F token=${GITLAB_CLEANER_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/7/trigger/pipeline > /dev/null
 
 dockerhub:latest:
   stage: dockerhub

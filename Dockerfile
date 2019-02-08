@@ -14,7 +14,7 @@ LABEL \
     org.label-schema.vcs-ref=${VCS_REF} \
     nl.timmertech.license=MIT
 
-ENV S6_OVERLAY_VERSION=v1.21.7.0 \
+ENV S6_OVERLAY_VERSION=v1.21.8.0 \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 RUN apk upgrade --update && \

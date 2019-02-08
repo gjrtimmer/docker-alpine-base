@@ -43,25 +43,35 @@ docker:branches:
 
 alpine-glibc:
   stage: triggers
+  only:
+    - master
   script:
     - curl -s -X POST -F token=${GLIBC_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/3/trigger/pipeline > /dev/null
 
 redis:
   stage: triggers
+  only:
+    - master
   script:
     - curl -s -X POST -F token=${REDIS_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/2/trigger/pipeline > /dev/null
 
 postgresql:
   stage: triggers
+  only:
+    - master
   script:
     - curl -s -X POST -F token=${POSTGRESQL_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/4/trigger/pipeline > /dev/null
     
 gitlab-cleaner:
   stage: triggers
+  only:
+    - master
   script:
     - curl -s -X POST -F token=${GITLAB_CLEANER_TOKEN} -F ref=master https://gitlab.timmertech.nl/api/v4/projects/7/trigger/pipeline > /dev/null
 
 dockerhub:latest:
   stage: triggers
+  only:
+    - master
   script:
     - curl -s -H 'Content-Type:application/json' --data '{"build":true}' -X POST https://registry.hub.docker.com/u/datacore/alpine-base/trigger/${DOCKERHUB_TOKEN}/ > /dev/null

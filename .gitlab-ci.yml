@@ -29,6 +29,16 @@ docker:latest:
   <<: *docker-build
   <<: *docker-push
 
+docker:release:
+  stage: build
+  only: 
+    - tags
+  variables:
+    DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_NAME}
+  <<: *docker-login
+  <<: *docker-build
+  <<: *docker-push
+
 docker:branches:
   stage: build
   only:

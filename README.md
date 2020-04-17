@@ -1,8 +1,8 @@
-[![build status](https://gitlab.timmertech.nl/docker/alpine-base/badges/master/build.svg)](https://gitlab.timmertech.nl/docker/alpine-base/commits/master)
+[![build status](https://gitlab.timmertech.nl/docker/alpine-base/badges/master/pipeline.svg)](https://gitlab.timmertech.nl/docker/alpine-base/commits/master)
 [![](https://images.microbadger.com/badges/image/datacore/alpine-base.svg)](https://microbadger.com/images/datacore/alpine-base)
 [![](https://images.microbadger.com/badges/license/datacore/alpine-base.svg)](https://microbadger.com/images/datacore/alpine-base)
 
-# Docker Alpine Linux
+## Docker Alpine Linux
 
 - [Docker Registries](#docker-registries)
 - [Source Repositories](#source-repositories)

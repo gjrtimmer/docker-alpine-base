@@ -12,6 +12,7 @@ LABEL \
     org.label-schema.url="https://gitlab.timmertech.nl/docker/alpine-base" \
     org.label-schema.vcs-url="https://gitlab.timmertech.nl/docker/alpine-base.git" \
     org.label-schema.vcs-ref=${VCS_REF} \
+    org.label-schema.alpine-version=3.11 \
     nl.timmertech.license=MIT
 
 ENV S6_OVERLAY_VERSION=v1.22.1.0 \

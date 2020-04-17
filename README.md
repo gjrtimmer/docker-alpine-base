@@ -15,7 +15,7 @@
 
 # Source Repositories
 
-- [github.com](https://github.com/GJRTimmer/docker-alpine-base)
+- [github.com](https://github.com/gjrtimmer/docker-alpine-base)
 - [gitlab.timmertech.nl](https://gitlab.timmertech.nl/docker/alpine-base)
 
 # Installation
@@ -31,7 +31,7 @@ docker pull datacore/alpine-base:latest
 
 Build:
 ```bash
-docker build -t datacore/alpine-base https://github.com/GJRTimmer/docker-alpine-base
+docker build -t datacore/alpine-base https://github.com/gjrtimmer/docker-alpine-base
 ```
 </p>
 </details>

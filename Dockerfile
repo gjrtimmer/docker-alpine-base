@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.12
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -15,7 +15,7 @@ LABEL \
     org.label-schema.alpine-version=3.11 \
     nl.timmertech.license=MIT
 
-ENV S6_OVERLAY_VERSION=v1.22.1.0 \
+ENV S6_OVERLAY_VERSION=v2.0.0.1 \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 RUN apk upgrade --update --no-cache && \

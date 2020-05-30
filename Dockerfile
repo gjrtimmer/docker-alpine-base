@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.12
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -12,10 +12,10 @@ LABEL \
     org.label-schema.url="https://gitlab.timmertech.nl/docker/alpine-base" \
     org.label-schema.vcs-url="https://gitlab.timmertech.nl/docker/alpine-base.git" \
     org.label-schema.vcs-ref=${VCS_REF} \
-    org.label-schema.alpine-version=3.11 \
+    org.label-schema.alpine-version=3.12 \
     nl.timmertech.license=MIT
 
-ENV S6_OVERLAY_VERSION=v1.22.1.0 \
+ENV S6_OVERLAY_VERSION=v2.0.0.1 \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 RUN apk upgrade --update --no-cache && \

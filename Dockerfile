@@ -15,7 +15,7 @@ LABEL \
     org.label-schema.alpine-version=3.12 \
     nl.timmertech.license=MIT
 
-ENV S6_OVERLAY_VERSION=v2.0.0.1 \
+ENV S6_OVERLAY_VERSION=v2.1.0.2 \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 RUN apk upgrade --update --no-cache && \

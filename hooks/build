@@ -2,7 +2,7 @@
 
 # $IMAGE_NAME var is injected into the build so the tag is correct.
 
-ALPINE_VERSION=`docker run --rm -it alpine:latest head -1 /etc/alpine-release`
+ALPINE_VERSION=`docker run --rm -t alpine:latest head -1 /etc/alpine-release|tr -d '\r'`
 
 docker build \
 		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \

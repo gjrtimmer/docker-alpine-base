@@ -19,7 +19,7 @@ variables:
         --build-arg VCS_REF="${CI_COMMIT_SHORT_SHA}"
         --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
         --build-arg DOCKER_IMAGE=${DOCKER_IMAGE}
-        --build-arg ALPINE_VERSION`docker run --rm -t alpine:latest head -1 /etc/alpine-release`
+        --build-arg ALPINE_VERSION=`docker run --rm -t alpine:latest head -1 /etc/alpine-release`
         --file=${DOCKER_FILE}
         --tag=${DOCKER_IMAGE} .
 

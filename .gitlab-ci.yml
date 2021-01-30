@@ -3,49 +3,57 @@ image: registry.timmertech.nl/docker/docker:latest
 stages:
   - build
 
-.docker-login: &docker-login
+variables:
+  CI: 'true'
+  DOCKER_DRIVER: overlay2
+
+################################################################################
+# Template(s)
+################################################################################
+.docker-build: &docker-build
+  stage: build
   before_script:
     - echo ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
-
-.docker-build: &docker-build
   script:
-    - docker build --pull --force-rm=true --squash 
-        --build-arg VCS_REF=`git rev-parse --short HEAD` 
-        --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
+    - docker build --pull
+        --build-arg VCS_REF="${CI_COMMIT_SHORT_SHA}"
+        --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+        --build-arg DOCKER_IMAGE=${DOCKER_IMAGE}
+        --build-arg ALPINE_VERSION`docker run --rm -it alpine:latest head -1 /etc/alpine-release`
+        --file=${DOCKER_FILE}
         --tag=${DOCKER_IMAGE} .
 
-.docker-push: &docker-push
-  after_script:
-    - docker push ${DOCKER_IMAGE}
-
-docker:latest:
-  stage: build
-  only: 
-    - master
+################################################################################
+# Job Configuration
+################################################################################
+:Build:
+  <<: *docker-build
   variables:
+    DOCKER_FILE: Dockerfile
     DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
-  <<: *docker-login
-  <<: *docker-build
-  <<: *docker-push
-
-docker:release:
-  stage: build
-  only: 
-    - tags
-  variables:
-    DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_NAME}
-  <<: *docker-login
-  <<: *docker-build
-  <<: *docker-push
-
-docker:branches:
-  stage: build
   only:
     - branches
   except:
     - master
-    - tags
-  variables:
-    DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_NAME}
-  <<: *docker-login
+    - schedules
+
+:Release:
   <<: *docker-build
+  variables:
+    DOCKER_FILE: Dockerfile
+    DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_SLUG}
+  only:
+    - tags
+  after_script:
+    - docker push ${DOCKER_IMAGE}
+
+:Auto-Update:
+  <<: *docker-build
+  variables:
+    DOCKER_FILE: Dockerfile
+    DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
+  only:
+    - master
+    - schedules
+  after_script:
+    - docker push ${DOCKER_IMAGE}

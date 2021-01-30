@@ -1,7 +1,9 @@
-FROM alpine:3.12
+FROM alpine:latest
 
 ARG BUILD_DATE
 ARG VCS_REF
+ARG DOCKER_IMAGE
+ARG ALPINE_VERSION
 
 LABEL \
     maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
@@ -12,11 +14,13 @@ LABEL \
     org.label-schema.url="https://gitlab.timmertech.nl/docker/alpine-base" \
     org.label-schema.vcs-url="https://gitlab.timmertech.nl/docker/alpine-base.git" \
     org.label-schema.vcs-ref=${VCS_REF} \
-    org.label-schema.alpine-version=3.12 \
+    org.label-schema.docker.image="${DOCKER_IMAGE}" \
+    org.label-schema.alpine-version="${ALPINE_VERSION}" \
     nl.timmertech.license=MIT
 
-ENV S6_OVERLAY_VERSION=v2.0.0.1 \
-    S6_BEHAVIOUR_IF_STAGE2_FAILS=2
+ENV S6_OVERLAY_VERSION=v2.2.0.1 \
+    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
+    ALPINE_VERSION=${ALPINE_VERSION}
 
 RUN apk upgrade --update --no-cache && \
     apk add --update --no-cache curl bash git tar gzip bzip2 file ca-certificates && \

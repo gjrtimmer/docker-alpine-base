@@ -2,6 +2,7 @@ image: registry.timmertech.nl/docker/docker:latest
 
 stages:
   - build
+  - trigger
 
 variables:
   CI: 'true'
@@ -57,3 +58,12 @@ variables:
     - schedules
   after_script:
     - docker push ${DOCKER_IMAGE}
+
+:alpine-glibc:
+  stage: trigger
+  only:
+    - master
+    - schedules
+  trigger:
+    project: docker/alpine-glibc
+    strategy: depend

@@ -2,13 +2,16 @@
 
 # $IMAGE_NAME var is injected into the build so the tag is correct.
 
-ALPINE_VERSION=`docker run --rm -t alpine:latest head -1 /etc/alpine-release|tr -d '\r'`
+ALPINE_VERSION="$(docker run --rm -t alpine:latest head -1 /etc/alpine-release|tr -d '\r')"
 
 docker build \
-		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-		--build-arg VCS_REF=`git rev-parse --short HEAD` \
+		--build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
+		--build-arg VCS_REF="$(git rev-parse --short HEAD)" \
+		--build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}" \
+        --build-arg CI_PROJECT_URL="${CI_PROJECT_URL}" \
+		--build-arg DOCKER_IMAGE_FROM="${DOCKER_IMAGE_FROM}" \
 		--build-arg DOCKER_IMAGE="${IMAGE_NAME}" \
 		--build-arg ALPINE_VERSION="${ALPINE_VERSION}" \
-		-t $IMAGE_NAME .
+		-t "${IMAGE_NAME}" .
 
 # EOF

@@ -71,6 +71,7 @@ alpine.glibc:
 docker.hub:
   stage: trigger
   only:
+    - tags
     - schedules
   script:
     - curl -s -H -X POST ${DOCKERHUB_TRIGGER} > /dev/null

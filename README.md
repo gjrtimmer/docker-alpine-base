@@ -1,55 +1,30 @@
 [![build status](https://gitlab.timmertech.nl/docker/alpine-base/badges/master/pipeline.svg)](https://gitlab.timmertech.nl/docker/alpine-base/commits/master)
-[![](https://images.microbadger.com/badges/image/datacore/alpine-base.svg)](https://microbadger.com/images/datacore/alpine-base)
-[![](https://images.microbadger.com/badges/license/datacore/alpine-base.svg)](https://microbadger.com/images/datacore/alpine-base)
 
-## Docker Alpine Linux
+> **Docker Hub Image Move**
+> 
+> The image on docker hub moved to `gjrtimmer/alpine-base`.
 
-- [Docker Registries](#docker-registries)
+# Docker Alpine Linux
+
 - [Source Repositories](#source-repositories)
 - [Installation](#installation)
+  - [Download](#download)
+  - [Build](#build)
 
-# Docker Registries
-
- - ```datacore/alpine-base:latest```
- - ```registry.timmertech.nl/docker/alpine-base:latest```
-
-# Source Repositories
+## Source Repositories
 
 - [github.com](https://github.com/gjrtimmer/docker-alpine-base)
-- [gitlab.timmertech.nl](https://gitlab.timmertech.nl/docker/alpine-base)
 
-# Installation
+## Installation
 
-<details>
-<summary>Install from DockerHub</summary>
-<p>
+### Download
 
-Download:
 ```bash
-docker pull datacore/alpine-base:latest
+docker pull gjrtimmer/alpine-base:latest
 ```
 
-Build:
+### Build
+
 ```bash
-docker build -t datacore/alpine-base https://github.com/gjrtimmer/docker-alpine-base
+docker build -t gjrtimmer/alpine-base https://github.com/gjrtimmer/docker-alpine-base
 ```
-</p>
-</details>
-
-<br/>
-
-<details>
-<summary>Install from TimmerTech</summary>
-<p>
-
-Download:
-```bash
-docker pull registry.timmertech.nl/docker/alpine-base:latest
-```
-
-Build:
-```bash
-docker build -t datacore/alpine-base https://gitlab.timmertech.nl/docker/alpine-base
-```
-</p>
-</details>

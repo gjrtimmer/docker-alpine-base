@@ -1,5 +1,10 @@
-ARG DOCKER_IMAGE_FROM
-FROM ${DOCKER_IMAGE_FROM}
+# Proxy argument is used to use the GitLab container proxy
+# When PROXY remains empty the build will default back to
+# the direct use of docker hub
+ARG PROXY
+
+ARG ALPINE_VERSION
+FROM ${PROXY}ghcr.io/linuxserver/baseimage-alpine:$ALPINE_VERSION
 
 ARG BUILD_DATE
 ARG CI_PROJECT_NAME
@@ -20,8 +25,7 @@ LABEL \
     org.label-schema.alpine-version="${ALPINE_VERSION}" \
     org.label-schema.license=MIT
 
-ENV S6_OVERLAY_VERSION=v2.2.0.3 \
-    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
     ALPINE_VERSION=${ALPINE_VERSION}
 
 RUN apk upgrade --update --no-cache && \
@@ -33,9 +37,6 @@ RUN apk upgrade --update --no-cache && \
         gzip \
         bzip2 \
         file \
-        ca-certificates && \
-    curl -sSL https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz | tar -xzf - -C /
-
-ENTRYPOINT ["/init"]
+        ca-certificates
 
 # EOF

@@ -16,10 +16,12 @@ variables:
 ################################################################################
 .build:
   stage: build
+  interruptible: true
   variables:
+    ALPINE_VERSION: '3.14'
     DOCKER_FILE: Dockerfile
     DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
-    DOCKER_IMAGE_FROM: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest
+    PROXY: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/
   before_script:
     - echo "${CI_DEPENDENCY_PROXY_PASSWORD}" | docker login -u "${CI_DEPENDENCY_PROXY_USER}" --password-stdin "${CI_DEPENDENCY_PROXY_SERVER}"
     - echo ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
@@ -27,13 +29,14 @@ variables:
     - docker build --pull
         --build-arg VCS_REF="${CI_COMMIT_SHORT_SHA}"
         --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-        --build-arg CI_PROJECT_NAME=${CI_PROJECT_NAME}
+        --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}"
         --build-arg CI_PROJECT_URL="${CI_PROJECT_URL}"
-        --build-arg DOCKER_IMAGE_FROM=${DOCKER_IMAGE_FROM}
-        --build-arg DOCKER_IMAGE=${DOCKER_IMAGE}
-        --build-arg ALPINE_VERSION=`docker run --rm -t alpine:latest head -1 /etc/alpine-release|tr -d '\r'`
+        --build-arg DOCKER_IMAGE_FROM="${DOCKER_IMAGE_FROM}"
+        --build-arg DOCKER_IMAGE="${DOCKER_IMAGE}"
+        --build-arg ALPINE_VERSION="${ALPINE_VERSION}"
         --file=${DOCKER_FILE}
         --tag=${DOCKER_IMAGE} .
+    - docker push ${DOCKER_IMAGE}
 
 
 ################################################################################
@@ -45,8 +48,6 @@ release:
     DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_TAG}
   only:
     - tags
-  after_script:
-    - docker push ${DOCKER_IMAGE}
 
 
 update:
@@ -54,8 +55,6 @@ update:
   only:
     - master
     - schedules
-  after_script:
-    - docker push ${DOCKER_IMAGE}
 
 
 alpine.glibc:
@@ -70,6 +69,7 @@ alpine.glibc:
 
 docker.hub:
   stage: trigger
+  interruptible: true
   only:
     - tags
     - schedules

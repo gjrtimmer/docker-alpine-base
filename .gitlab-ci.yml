@@ -34,6 +34,7 @@ variables:
         --build-arg DOCKER_IMAGE_FROM="${DOCKER_IMAGE_FROM}"
         --build-arg DOCKER_IMAGE="${DOCKER_IMAGE}"
         --build-arg ALPINE_VERSION="${ALPINE_VERSION}"
+        --build-arg PROXY=${PROXY}
         --file=${DOCKER_FILE}
         --tag=${DOCKER_IMAGE} .
     - docker push ${DOCKER_IMAGE}

@@ -1,9 +1,5 @@
-# Proxy argument is used to use the GitLab container proxy
-# When PROXY remains empty the build will default back to
-# the direct use of docker hub
-ARG PROXY
 ARG ALPINE_VERSION
-FROM "${PROXY}ghcr.io/linuxserver/baseimage-alpine:$ALPINE_VERSION"
+FROM "ghcr.io/linuxserver/baseimage-alpine:${ALPINE_VERSION}"
 
 ARG BUILD_DATE
 ARG CI_PROJECT_NAME

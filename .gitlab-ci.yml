@@ -51,6 +51,15 @@ update:
     - master
     - schedules
 
+alpine-glibc:
+  stage: trigger
+  only:
+    - master
+    - schedules
+  allow_failure: true
+  trigger:
+    project: docker/alpine-glibc
+
 dockerhub:
   stage: trigger
   interruptible: true

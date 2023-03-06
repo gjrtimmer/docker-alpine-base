@@ -45,7 +45,7 @@ release:
   only:
     - tags
 
-update:
+build:
   extends: .build
   only:
     - master

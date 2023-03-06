@@ -3,7 +3,7 @@ ARG ALPINE_VERSION
 FROM ${DOCKER_PROXY}/linuxserver/baseimage-alpine:${ALPINE_VERSION}
 
 RUN apk upgrade --update --no-cache && \
-    apk add --update --no-cache \
+    apk add --update --force-overwrite --no-cache \
     curl \
     bash \
     git \

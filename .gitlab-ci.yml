@@ -15,7 +15,7 @@ variables:
   stage: build
   interruptible: true
   variables:
-    ALPINE_VERSION: "3.17"
+    ALPINE_VERSION: "3.15"
     DOCKER_FILE: Dockerfile
     DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
   before_script:

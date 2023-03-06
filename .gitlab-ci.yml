@@ -19,7 +19,7 @@ variables:
     DOCKER_FILE: Dockerfile
     DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
   before_script:
-    - echo "${DOCKER_PROXY_PASS}" | docker login -u "${DOCKER_PROXY_USER}" --password-stdin "${DOKCER_PROXY_HOST}"
+    - echo "${DOCKER_PROXY_PASS}" | docker login -u "${DOCKER_PROXY_USER}" --password-stdin "${DOCKER_PROXY_HOST}"
     - echo ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
   script:
     - docker build --pull

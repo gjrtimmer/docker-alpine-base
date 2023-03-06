@@ -2,8 +2,8 @@ ARG DOCKER_PROXY
 ARG ALPINE_VERSION
 FROM ${DOCKER_PROXY}/linuxserver/baseimage-alpine:${ALPINE_VERSION}
 
-RUN echo 'http://nl.alpinelinux.org/alpine/edge/main'  >> /etc/apk/repositories && \
-    echo 'http://nl.alpinelinux.org/alpine/edge/community'  >> /etc/apk/repositories && \
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main'  >> /etc/apk/repositories && \
+    echo 'http://dl-cdn.alpinelinux.org/alpine/edge/community'  >> /etc/apk/repositories && \
     apk add --no-cache --force-overwrite --update \
     curl \
     wget \

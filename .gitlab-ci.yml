@@ -51,14 +51,12 @@ update:
     - master
     - schedules
 
-alpine.glibc:
+alpine-glibc:
   stage: trigger
   only:
     - master
     - schedules
-  trigger:
-    project: docker/alpine-glibc
-    strategy: depend
+  trigger: docker/alpine-glibc
 
 dockerhub:
   stage: trigger

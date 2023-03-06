@@ -2,17 +2,21 @@ ARG DOCKER_PROXY
 ARG ALPINE_VERSION
 FROM ${DOCKER_PROXY}/linuxserver/baseimage-alpine:${ALPINE_VERSION}
 
-RUN apk upgrade --update --no-cache && \
-    apk add --update --force-overwrite --no-cache \
+RUN echo 'http://nl.alpinelinux.org/alpine/edge/main'  >> /etc/apk/repositories && \
+    echo 'http://nl.alpinelinux.org/alpine/edge/community'  >> /etc/apk/repositories && \
+    apk add --no-cache --force-overwrite --update \
     curl \
     wget \
     bash \
     git \
+    git-lfs \
     tar \
     gzip \
     bzip2 \
     file \
     shadow \
+    findutils \
+    openssl \
     ca-certificates && \
     update-ca-certificates
 

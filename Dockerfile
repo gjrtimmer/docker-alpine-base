@@ -5,6 +5,7 @@ FROM ${DOCKER_PROXY}/linuxserver/baseimage-alpine:${ALPINE_VERSION}
 RUN apk upgrade --update --no-cache && \
     apk add --update --force-overwrite --no-cache \
     curl \
+    wget \
     bash \
     git \
     tar \

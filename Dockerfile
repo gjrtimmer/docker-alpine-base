@@ -11,6 +11,7 @@ RUN apk upgrade --update --no-cache && \
     gzip \
     bzip2 \
     file \
+    shadow \
     ca-certificates && \
     update-ca-certificates
 

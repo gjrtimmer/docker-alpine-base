@@ -1,5 +1,21 @@
+ARG DOCKER_PROXY
 ARG ALPINE_VERSION
-FROM "ghcr.io/linuxserver/baseimage-alpine:${ALPINE_VERSION}"
+FROM ${DOCKER_PROXY}/linuxserver/baseimage-alpine:${ALPINE_VERSION}
+
+RUN apk upgrade --update --no-cache && \
+    apk add --update --no-cache \
+    curl \
+    bash \
+    git \
+    tar \
+    gzip \
+    bzip2 \
+    file \
+    ca-certificates && \
+    update-ca-certificates
+
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
+    ALPINE_VERSION=${ALPINE_VERSION}
 
 ARG BUILD_DATE
 ARG CI_PROJECT_NAME
@@ -19,19 +35,3 @@ LABEL \
     org.label-schema.docker.image="${DOCKER_IMAGE}" \
     org.label-schema.alpine-version="${ALPINE_VERSION}" \
     org.label-schema.license=MIT
-
-ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
-    ALPINE_VERSION=${ALPINE_VERSION}
-
-RUN apk upgrade --update --no-cache && \
-    apk add --update --no-cache \
-        curl \
-        bash \
-        git \
-        tar \
-        gzip \
-        bzip2 \
-        file \
-        ca-certificates
-
-# EOF

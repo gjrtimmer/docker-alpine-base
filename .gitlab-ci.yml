@@ -1,15 +1,12 @@
 image: registry.timmertech.nl/docker/docker:latest
 
-
 stages:
   - build
   - trigger
 
-
 variables:
-  CI: 'true'
+  CI: "true"
   DOCKER_DRIVER: overlay2
-
 
 ################################################################################
 # Template(s)
@@ -18,7 +15,7 @@ variables:
   stage: build
   interruptible: true
   variables:
-    ALPINE_VERSION: '3.14'
+    ALPINE_VERSION: "3.17"
     DOCKER_FILE: Dockerfile
     DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
   before_script:
@@ -26,17 +23,17 @@ variables:
     - echo ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
   script:
     - docker build --pull
-        --build-arg VCS_REF="${CI_COMMIT_SHORT_SHA}"
-        --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-        --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}"
-        --build-arg CI_PROJECT_URL="${CI_PROJECT_URL}"
-        --build-arg DOCKER_IMAGE_FROM="${DOCKER_IMAGE_FROM}"
-        --build-arg DOCKER_IMAGE="${DOCKER_IMAGE}"
-        --build-arg ALPINE_VERSION="${ALPINE_VERSION}"
-        --file=${DOCKER_FILE}
-        --tag=${DOCKER_IMAGE} .
+      --build-arg VCS_REF="${CI_COMMIT_SHORT_SHA}"
+      --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+      --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}"
+      --build-arg CI_PROJECT_URL="${CI_PROJECT_URL}"
+      --build-arg DOCKER_IMAGE_FROM="${DOCKER_IMAGE_FROM}"
+      --build-arg DOCKER_IMAGE="${DOCKER_IMAGE}"
+      --build-arg ALPINE_VERSION="${ALPINE_VERSION}"
+      --build-arg DOCKER_PROXY=${DOCKER_PROXY_HOST}
+      --file=${DOCKER_FILE}
+      --tag=${DOCKER_IMAGE} .
     - docker push ${DOCKER_IMAGE}
-
 
 ################################################################################
 # Job Configuration
@@ -48,13 +45,11 @@ release:
   only:
     - tags
 
-
 update:
   extends: .build
   only:
     - master
     - schedules
-
 
 alpine.glibc:
   stage: trigger
@@ -65,8 +60,7 @@ alpine.glibc:
     project: docker/alpine-glibc
     strategy: depend
 
-
-docker.hub:
+dockerhub:
   stage: trigger
   interruptible: true
   only:
@@ -74,6 +68,3 @@ docker.hub:
     - schedules
   script:
     - curl -s -H -X POST ${DOCKERHUB_TRIGGER} > /dev/null
-
-
-# EOF

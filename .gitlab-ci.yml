@@ -25,7 +25,6 @@ include:
       --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
       --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}"
       --build-arg CI_PROJECT_URL="${CI_PROJECT_URL}"
-      --build-arg DOCKER_IMAGE_FROM="${DOCKER_IMAGE_FROM}"
       --build-arg DOCKER_IMAGE="${DOCKER_IMAGE}"
       --build-arg ALPINE_VERSION="${ALPINE_VERSION}"
       --build-arg DOCKER_PROXY=${DOCKER_PROXY_HOST}

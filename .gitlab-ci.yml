@@ -7,7 +7,6 @@ stages:
 
 variables:
   CI: "true"
-  DOCKER_CONFIG: ".docker-config/"
   DOCKER_DRIVER: overlay2
   DOCKER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
 
@@ -21,8 +20,8 @@ variables:
     ALPINE_VERSION: "3.17"
     DOCKER_FILE: Dockerfile
   before_script:
-    - docker login ${DOCKER_PROXY_HOST}
-    - docker login ${CI_REGISTRY}
+    - mkdir -p $HOME/.docker
+    - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
   script:
     - docker build --pull
       --build-arg VCS_REF="${CI_COMMIT_SHORT_SHA}"

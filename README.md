@@ -1,7 +1,7 @@
-[![build status](https://gitlab.timmertech.nl/docker/alpine-base/badges/master/pipeline.svg)](https://gitlab.timmertech.nl/docker/alpine-base/commits/master)
+[![build status](https://gitlab.timmertech.nl/docker/alpine-base/badges/main/pipeline.svg)](https://gitlab.timmertech.nl/docker/alpine-base/commits/main)
 
 > **Docker Hub Image Move**
-> 
+>
 > The image on docker hub moved to `gjrtimmer/alpine-base`.
 
 # Docker Alpine Linux

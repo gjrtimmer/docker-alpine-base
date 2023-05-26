@@ -87,3 +87,14 @@ bumpver:
       yaml_variables: false
       pipeline_variables: false
     project: docker/bumpver
+
+git-convetional-commits:
+  stage: trigger
+  only:
+    - main
+    - schedules
+  trigger:
+    forward:
+      yaml_variables: false
+      pipeline_variables: false
+    project: docker/git-conventional-commits

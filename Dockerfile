@@ -20,6 +20,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main'  >> /etc/apk/repositor
     ca-certificates && \
     update-ca-certificates
 
+ARG ALPINE_VERSION
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
     ALPINE_VERSION=${ALPINE_VERSION}
 

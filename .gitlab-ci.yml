@@ -26,6 +26,7 @@ dockerhub:
   stage: dockerhub
   extends: .build
   variables:
+    DOCKER_HUB: "ENABLED"
     DOCKER_IMAGE: ${DOCKER_HUB_IMAGE}
 
 release:
@@ -39,6 +40,7 @@ dockerhub-release:
   stage: dockerhub
   extends: .build
   variables:
+    DOCKER_HUB: "ENABLED"
     DOCKER_IMAGE: ${DOCKER_HUB_IMAGE_PATH}:${CI_COMMIT_TAG}
   only:
     - tags

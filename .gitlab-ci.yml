@@ -44,17 +44,17 @@ dockerhub-release:
     DOCKER_IMAGE: ${DOCKER_IMAGE_HUB_PATH}:${CI_COMMIT_TAG}
   only:
     - tags
-# alpine-glibc:
-#   stage: trigger
-#   only:
-#     - main
-#     - schedules
-#   trigger:
-#     forward:
-#       yaml_variables: false
-#       pipeline_variables: false
-#     project: docker/alpine-glibc
 
+alpine-glibc:
+  stage: trigger
+  only:
+    - main
+    - schedules
+  trigger:
+    forward:
+      yaml_variables: false
+      pipeline_variables: false
+    project: docker/alpine-glibc
 # bumpver:
 #   stage: trigger
 #   only:

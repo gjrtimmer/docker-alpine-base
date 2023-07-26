@@ -10,12 +10,7 @@ include:
     file: docker-multi-arch.yml
 
 .build:
-  stage: build
-  interruptible: true
-  only:
-    - main
-    - schedules
-  extends: .docker-init
+  extends: .docker-multi-arch-build
   variables:
     ALPINE_VERSION: "3.17"
   script:

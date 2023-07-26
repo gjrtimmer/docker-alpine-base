@@ -13,7 +13,7 @@ include:
 .build:
   extends: .docker-build-multi
   variables:
-    ALPINE_VERSION: "3.17"
+    ALPINE_VERSION: "3.18"
     DOCKER_PROXY: "ENABLED"
     PLATFORM: "linux/arm64,linux/amd64"
     BUILD_ARGS: >-

@@ -58,7 +58,7 @@ release:
 
 dockerhub-release:
   stage: dockerhub
-  extends: .dockerhub
+  extends: .build
   variables:
     DOCKER_IMAGE: ${DOCKERHUB_REGISTRY}/${DOCKERHUB_NAMESPACE}/${CI_PROJECT_NAME}:${CI_COMMIT_TAG}
   only:

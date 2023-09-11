@@ -3,6 +3,7 @@ default:
 
 stages:
   - build
+  - multi
   - dockerhub
   - trigger
 
@@ -19,8 +20,25 @@ include:
     BUILD_ARGS: >-
       --build-arg ALPINE_VERSION=${ALPINE_VERSION}
 
-build:
-  extends: .build
+amd64:
+  extends: .docker-build-amd64
+  variables:
+    ALPINE_VERSION: "3.18"
+    BUILD_ARGS: >-
+      --build-arg ALPINE_VERSION=${ALPINE_VERSION}
+
+arm64:
+  extends: .docker-build-arm64
+  variables:
+    ALPINE_VERSION: "3.18"
+    BUILD_ARGS: >-
+      --build-arg ALPINE_VERSION=${ALPINE_VERSION}
+
+multi:
+  extends: .docker-build-multi
+  stage: multi
+  variables:
+    PLATFORM: "linux/arm64,linux/amd64"
 
 dockerhub:
   stage: dockerhub

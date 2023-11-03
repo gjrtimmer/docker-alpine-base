@@ -85,7 +85,7 @@ bumpver:
       pipeline_variables: false
     project: docker/bumpver
 
-git-convetional-commits:
+git-conventional-commits:
   stage: trigger
   only:
     - main

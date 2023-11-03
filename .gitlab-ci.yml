@@ -40,7 +40,7 @@ arm64:
       --build-arg ALPINE_VERSION=${ALPINE_VERSION}
 
 multi:
-  extends: .docker-build-multi
+  extends: .build
   stage: multi
   variables:
     PLATFORM: "linux/arm64,linux/amd64"

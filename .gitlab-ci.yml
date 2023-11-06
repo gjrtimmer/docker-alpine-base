@@ -41,27 +41,18 @@ multi:
   stage: multi
   variables:
     PLATFORM: "linux/arm64,linux/amd64"
-
-dockerhub:
-  stage: dockerhub
-  extends: .build
-  variables:
     DOCKER_HUB: "ENABLED"
-    DOCKER_IMAGE: ${DOCKER_IMAGE_HUB}
+    DOCKER_TAGS: >-
+      --tag=${DOCKER_IMAGE_PATH}:latest
+      --tag=${DOCKER_IMAGE_HUB_PATH}:latest
 
 release:
   extends: .build
   variables:
-    DOCKER_IMAGE: ${DOCKER_IMAGE_PATH}:${CI_COMMIT_TAG}
-  only:
-    - tags
-
-dockerhub-release:
-  stage: dockerhub
-  extends: .build
-  variables:
     DOCKER_HUB: "ENABLED"
-    DOCKER_IMAGE: ${DOCKER_IMAGE_HUB_PATH}:${CI_COMMIT_TAG}
+    DOCKER_IMAGE: ${DOCKER_IMAGE_PATH}:${CI_COMMIT_TAG}
+    DOCKER_TAGS: >-
+      --tag=${DOCKER_IMAGE_HUB_PATH}:${CI_COMMIT_TAG}
   only:
     - tags
 
@@ -97,13 +88,3 @@ git-conventional-commits:
       yaml_variables: false
       pipeline_variables: false
     project: docker/git-conventional-commits
-# alpine.gitlab-runner:
-#   stage: trigger
-#   only:
-#     - main
-#     - schedules
-#   trigger:
-#     forward:
-#       yaml_variables: false
-#       pipeline_variables: false
-#     project: docker/gitlab-runner

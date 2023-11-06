@@ -26,7 +26,7 @@ amd64:
     ALPINE_VERSION: "3.18"
     DOCKER_PROXY_HOST: "ghcr.io"
     BUILD_ARGS: >-
-      --build-arg ALPINE_VERSION=${ALPINE_VERSION}
+      --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
 
 arm64:
   extends: .docker-build-arm64
@@ -34,7 +34,7 @@ arm64:
     ALPINE_VERSION: "3.18"
     DOCKER_PROXY_HOST: "ghcr.io"
     BUILD_ARGS: >-
-      --build-arg ALPINE_VERSION=${ALPINE_VERSION}
+      --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
 
 multi:
   extends: .build

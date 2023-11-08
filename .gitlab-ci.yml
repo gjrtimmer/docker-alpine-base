@@ -99,3 +99,14 @@ shellcheck:
       yaml_variables: false
       pipeline_variables: false
     project: docker/shellcheck
+
+release-cli:
+  stage: trigger
+  only:
+    - main
+    - schedules
+  trigger:
+    forward:
+      yaml_variables: false
+      pipeline_variables: false
+    project: docker/release-cli

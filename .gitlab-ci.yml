@@ -67,6 +67,17 @@ alpine-glibc:
       pipeline_variables: false
     project: docker/alpine-glibc
 
+alpine-sdk:
+  stage: trigger
+  only:
+    - main
+    - schedules
+  trigger:
+    forward:
+      yaml_variables: false
+      pipeline_variables: false
+    project: docker/alpine-sdk
+
 bumpver:
   stage: trigger
   only:

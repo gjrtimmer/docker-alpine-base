@@ -8,6 +8,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main'  >> /etc/apk/repositor
     curl \
     wget \
     bash \
+    coreutils \
     git \
     git-lfs \
     tar \

@@ -31,6 +31,8 @@ ARG DOCKER_IMAGE
 ARG ALPINE_VERSION
 
 LABEL \
+    maintainer="G.J.R. Timmer <gjr.timmer@gmail.com>" \
+    build_version="${BUILD_DATE}" \
     org.opencontainers.image.authors="G.J.R. Timmer <gjr.timmer@gmail.com>" \
     org.opencontainers.image.created="${BUILD_DATE}" \
     org.opencontainers.image.title="${CI_PROJECT_NAME}" \

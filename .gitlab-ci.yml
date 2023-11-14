@@ -121,3 +121,14 @@ release-cli:
       yaml_variables: false
       pipeline_variables: false
     project: docker/release-cli
+
+publish:
+  stage: trigger
+  only:
+    - main
+    - schedules
+  trigger:
+    forward:
+      yaml_variables: false
+      pipeline_variables: false
+    project: tools/publish

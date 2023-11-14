@@ -132,3 +132,14 @@ publish:
       yaml_variables: false
       pipeline_variables: false
     project: tools/publish
+
+chkver:
+  stage: trigger
+  only:
+    - main
+    - schedules
+  trigger:
+    forward:
+      yaml_variables: false
+      pipeline_variables: false
+    project: tools/chkver

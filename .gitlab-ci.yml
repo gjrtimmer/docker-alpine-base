@@ -144,7 +144,7 @@ chkver:
       pipeline_variables: false
     project: tools/chkver
 
-postgres:
+postgresql:
   stage: trigger
   only:
     - main

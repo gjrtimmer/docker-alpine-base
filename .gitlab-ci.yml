@@ -154,3 +154,14 @@ postgresql:
       yaml_variables: false
       pipeline_variables: false
     project: docker/postgresql
+
+redis:
+  stage: trigger
+  only:
+    - main
+    - schedules
+  trigger:
+    forward:
+      yaml_variables: false
+      pipeline_variables: false
+    project: docker/redis

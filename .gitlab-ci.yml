@@ -78,49 +78,49 @@ alpine-sdk:
       pipeline_variables: false
     project: docker/alpine-sdk
 
-bumpver:
-  stage: trigger
-  only:
-    - main
-    - schedules
-  trigger:
-    forward:
-      yaml_variables: false
-      pipeline_variables: false
-    project: docker/bumpver
+# bumpver:
+#   stage: trigger
+#   only:
+#     - main
+#     - schedules
+#   trigger:
+#     forward:
+#       yaml_variables: false
+#       pipeline_variables: false
+#     project: docker/bumpver
 
-git-conventional-commits:
-  stage: trigger
-  only:
-    - main
-    - schedules
-  trigger:
-    forward:
-      yaml_variables: false
-      pipeline_variables: false
-    project: docker/git-conventional-commits
+# git-conventional-commits:
+#   stage: trigger
+#   only:
+#     - main
+#     - schedules
+#   trigger:
+#     forward:
+#       yaml_variables: false
+#       pipeline_variables: false
+#     project: docker/git-conventional-commits
 
-shellcheck:
-  stage: trigger
-  only:
-    - main
-    - schedules
-  trigger:
-    forward:
-      yaml_variables: false
-      pipeline_variables: false
-    project: docker/shellcheck
+# shellcheck:
+#   stage: trigger
+#   only:
+#     - main
+#     - schedules
+#   trigger:
+#     forward:
+#       yaml_variables: false
+#       pipeline_variables: false
+#     project: docker/shellcheck
 
-release-cli:
-  stage: trigger
-  only:
-    - main
-    - schedules
-  trigger:
-    forward:
-      yaml_variables: false
-      pipeline_variables: false
-    project: docker/release-cli
+# release-cli:
+#   stage: trigger
+#   only:
+#     - main
+#     - schedules
+#   trigger:
+#     forward:
+#       yaml_variables: false
+#       pipeline_variables: false
+#     project: docker/release-cli
 
 publish:
   stage: trigger

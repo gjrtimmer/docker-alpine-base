@@ -78,49 +78,38 @@ alpine-sdk:
       pipeline_variables: false
     project: docker/alpine-sdk
 
-# bumpver:
-#   stage: trigger
-#   only:
-#     - main
-#     - schedules
-#   trigger:
-#     forward:
-#       yaml_variables: false
-#       pipeline_variables: false
-#     project: docker/bumpver
+bumpver:
+  stage: trigger
+  only:
+    - main
+    - schedules
+  trigger:
+    forward:
+      yaml_variables: false
+      pipeline_variables: false
+    project: tools/bumpver
 
-# git-conventional-commits:
-#   stage: trigger
-#   only:
-#     - main
-#     - schedules
-#   trigger:
-#     forward:
-#       yaml_variables: false
-#       pipeline_variables: false
-#     project: docker/git-conventional-commits
+chkver:
+  stage: trigger
+  only:
+    - main
+    - schedules
+  trigger:
+    forward:
+      yaml_variables: false
+      pipeline_variables: false
+    project: tools/chkver
 
-# shellcheck:
-#   stage: trigger
-#   only:
-#     - main
-#     - schedules
-#   trigger:
-#     forward:
-#       yaml_variables: false
-#       pipeline_variables: false
-#     project: docker/shellcheck
-
-# release-cli:
-#   stage: trigger
-#   only:
-#     - main
-#     - schedules
-#   trigger:
-#     forward:
-#       yaml_variables: false
-#       pipeline_variables: false
-#     project: docker/release-cli
+git-conventional-commits:
+  stage: trigger
+  only:
+    - main
+    - schedules
+  trigger:
+    forward:
+      yaml_variables: false
+      pipeline_variables: false
+    project: tools/git-conventional-commits
 
 publish:
   stage: trigger
@@ -133,7 +122,7 @@ publish:
       pipeline_variables: false
     project: tools/publish
 
-chkver:
+release-cli:
   stage: trigger
   only:
     - main
@@ -142,7 +131,18 @@ chkver:
     forward:
       yaml_variables: false
       pipeline_variables: false
-    project: tools/chkver
+    project: tools/release-cli
+
+shellcheck:
+  stage: trigger
+  only:
+    - main
+    - schedules
+  trigger:
+    forward:
+      yaml_variables: false
+      pipeline_variables: false
+    project: tools/shellcheck
 
 postgresql:
   stage: trigger

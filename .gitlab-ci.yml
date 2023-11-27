@@ -19,21 +19,21 @@ variables:
   variables:
     DOCKER_PROXY_HOST: "ghcr.io"
     PLATFORM: "linux/arm64,linux/amd64"
-    BUILD_ARGS: >-
+    DOCKER_BUILD_ARGS: >-
       --build-arg ALPINE_VERSION=${ALPINE_VERSION}
 
 amd64:
   extends: .docker-build-amd64
   variables:
     DOCKER_PROXY_HOST: "ghcr.io"
-    BUILD_ARGS: >-
+    DOCKER_BUILD_ARGS: >-
       --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
 
 arm64:
   extends: .docker-build-arm64
   variables:
     DOCKER_PROXY_HOST: "ghcr.io"
-    BUILD_ARGS: >-
+    DOCKER_BUILD_ARGS: >-
       --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
 
 multi:

@@ -21,6 +21,9 @@ variables:
     PLATFORM: "linux/arm64,linux/amd64"
     DOCKER_ARGS: >-
       --build-arg ALPINE_VERSION=${ALPINE_VERSION}
+      --cache-from=type=registry,ref=${DOCKER_IMAGE}
+      --cache-from=type=registry,ref=${DOCKER_IMAGE_PATH}:amd64
+      --cache-from=type=registry,ref=${DOCKER_IMAGE_PATH}:arm64
 
 amd64:
   extends: .docker-build-amd64
@@ -28,6 +31,7 @@ amd64:
     DOCKER_PROXY_HOST: "ghcr.io"
     DOCKER_ARGS: >-
       --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
+      --cache-from=type=registry,ref=${DOCKER_IMAGE_PATH}:amd64
 
 arm64:
   extends: .docker-build-arm64
@@ -35,6 +39,7 @@ arm64:
     DOCKER_PROXY_HOST: "ghcr.io"
     DOCKER_ARGS: >-
       --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
+      --cache-from=type=registry,ref=${DOCKER_IMAGE_PATH}:arm64
 
 multi:
   extends: .build

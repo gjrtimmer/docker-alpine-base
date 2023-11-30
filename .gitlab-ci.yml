@@ -9,7 +9,7 @@ stages:
 
 include:
   - project: templates/ci
-    file: docker.yml
+    file: default.yml
 
 variables:
   ALPINE_VERSION: "3.18"
@@ -32,6 +32,7 @@ amd64:
     DOCKER_ARGS: >-
       --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
       --cache-from=type=registry,ref=${DOCKER_IMAGE_PATH}:amd64
+    HEALTH_CHECK_UUID: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
 
 arm64:
   extends: .docker-build-arm64
@@ -40,6 +41,7 @@ arm64:
     DOCKER_ARGS: >-
       --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
       --cache-from=type=registry,ref=${DOCKER_IMAGE_PATH}:arm64
+    HEALTH_CHECK_UUID: 0141d21d-9e28-41be-9924-798180f50a40
 
 multi:
   extends: .build
@@ -50,6 +52,7 @@ multi:
     DOCKER_TAGS: >-
       --tag=${DOCKER_IMAGE_PATH}:latest
       --tag=${DOCKER_IMAGE_HUB_PATH}:latest
+    HEALTH_CHECK_UUID: bd7741c6-2147-4e21-8e83-141a60973760
 
 release:
   extends: .build

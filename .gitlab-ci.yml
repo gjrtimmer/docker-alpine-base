@@ -68,6 +68,10 @@ alpine-glibc:
   only:
     - main
     - schedules
+  inherit:
+    variables: false
+  variables:
+    DOKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -79,6 +83,10 @@ alpine-sdk:
   only:
     - main
     - schedules
+  inherit:
+    variables: false
+  variables:
+    DOKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -167,6 +175,10 @@ postgresql:
   only:
     - main
     - schedules
+  inherit:
+    variables: false
+  variables:
+    DOKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -178,6 +190,10 @@ redis:
   only:
     - main
     - schedules
+  inherit:
+    variables: false
+  variables:
+    DOKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false

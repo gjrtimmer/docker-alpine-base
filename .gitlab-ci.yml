@@ -1,15 +1,11 @@
-default:
-  image: registry.timmertech.nl/docker/docker:latest
-
-stages:
-  - build
-  - multi
-  - dockerhub
-  - trigger
-
+# yaml-language-server: $schema=https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json
 include:
   - project: templates/ci
     file: default.yml
+
+stages:
+  - build
+  - trigger
 
 variables:
   ALPINE_VERSION: "3.18"
@@ -45,7 +41,9 @@ arm64:
 
 multi:
   extends: .build
-  stage: multi
+  needs:
+    - amd64
+    - arm64
   variables:
     PLATFORM: "linux/arm64,linux/amd64"
     DOCKER_HUB: "ENABLED"

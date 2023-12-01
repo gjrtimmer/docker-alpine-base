@@ -45,6 +45,7 @@ multi:
     DOCKER_IMAGE_CACHE_FROM: ${DOCKER_IMAGE_CACHE}
     DOKCER_IMAGE_CACHE_TO: ${DOCKER_IMAGE_CACHE}
     DOCKER_ARGS: >-
+      --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
       --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:amd64
       --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:arm64
     DOCKER_TAGS: >-

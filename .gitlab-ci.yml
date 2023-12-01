@@ -17,9 +17,6 @@ variables:
     PLATFORM: "linux/arm64,linux/amd64"
     DOCKER_ARGS: >-
       --build-arg ALPINE_VERSION=${ALPINE_VERSION}
-      --cache-from=type=registry,ref=${DOCKER_IMAGE}
-      --cache-from=type=registry,ref=${DOCKER_IMAGE_PATH}:amd64
-      --cache-from=type=registry,ref=${DOCKER_IMAGE_PATH}:arm64
 
 amd64:
   extends: .docker-build-amd64
@@ -27,7 +24,6 @@ amd64:
     DOCKER_PROXY_HOST: "ghcr.io"
     DOCKER_ARGS: >-
       --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
-      --cache-from=type=registry,ref=${DOCKER_IMAGE_PATH}:amd64
     HEALTH_CHECK_UUID: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
 
 arm64:
@@ -36,7 +32,6 @@ arm64:
     DOCKER_PROXY_HOST: "ghcr.io"
     DOCKER_ARGS: >-
       --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
-      --cache-from=type=registry,ref=${DOCKER_IMAGE_PATH}:arm64
     HEALTH_CHECK_UUID: 0141d21d-9e28-41be-9924-798180f50a40
 
 multi:
@@ -47,6 +42,11 @@ multi:
   variables:
     PLATFORM: "linux/arm64,linux/amd64"
     DOCKER_HUB: "ENABLED"
+    DOCKER_IMAGE_CACHE_FROM: ${DOCKER_IMAGE_CACHE}
+    DOKCER_IMAGE_CACHE_TO: ${DOCKER_IMAGE_CACHE}
+    DOCKER_ARGS: >-
+      --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:amd64
+      --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:arm64
     DOCKER_TAGS: >-
       --tag=${DOCKER_IMAGE_PATH}:latest
       --tag=${DOCKER_IMAGE_HUB_PATH}:latest

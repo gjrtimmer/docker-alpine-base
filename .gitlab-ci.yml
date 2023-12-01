@@ -71,7 +71,7 @@ alpine-glibc:
   inherit:
     variables: false
   variables:
-    DOKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
+    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -86,7 +86,7 @@ alpine-sdk:
   inherit:
     variables: false
   variables:
-    DOKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
+    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -98,6 +98,10 @@ bumpver:
   only:
     - main
     - schedules
+  inherit:
+    variables: false
+  variables:
+    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -109,6 +113,10 @@ chkver:
   only:
     - main
     - schedules
+  inherit:
+    variables: false
+  variables:
+    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -120,6 +128,10 @@ git-conventional-commits:
   only:
     - main
     - schedules
+  inherit:
+    variables: false
+  variables:
+    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -131,6 +143,10 @@ github-cli:
   only:
     - main
     - schedules
+  inherit:
+    variables: false
+  variables:
+    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -142,6 +158,10 @@ publish:
   only:
     - main
     - schedules
+  inherit:
+    variables: false
+  variables:
+    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -153,6 +173,10 @@ release-cli:
   only:
     - main
     - schedules
+  inherit:
+    variables: false
+  variables:
+    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -164,6 +188,10 @@ shellcheck:
   only:
     - main
     - schedules
+  inherit:
+    variables: false
+  variables:
+    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -178,7 +206,7 @@ postgresql:
   inherit:
     variables: false
   variables:
-    DOKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
+    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false
@@ -193,7 +221,7 @@ redis:
   inherit:
     variables: false
   variables:
-    DOKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
+    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
   trigger:
     forward:
       yaml_variables: false

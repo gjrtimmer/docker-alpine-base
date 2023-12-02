@@ -8,30 +8,63 @@ stages:
   - trigger
 
 variables:
-  ALPINE_VERSION: "3.18"
+  DOCKER_BUILDX_PIPELINE: $CI_PIPELINE_ID
+  TRIGGER_BUMPVER:
+    description: Trigger Bump Version
+    value: ENABLED
+    options:
+      - "ENABLED"
+      - "DISABLED"
+  TRIGGER_CHKVER:
+    description: Trigger Check Version
+    value: ENABLED
+    options:
+      - "ENABLED"
+      - "DISABLED"
+  TRIGGER_GIT_CONVENTIONAL_COMMITS:
+    description: Trigger Git Conventional Commits
+    value: ENABLED
+    options:
+      - "ENABLED"
+      - "DISABLED"
+  TRIGGER_GITHUB_CLI:
+    description: Trigger GitHub CLI
+    value: ENABLED
+    options:
+      - "ENABLED"
+      - "DISABLED"
+  TRIGGER_PUBLISH:
+    description: Trigger Publish
+    value: ENABLED
+    options:
+      - "ENABLED"
+      - "DISABLED"
+  TRIGGER_RELEASE_CLI:
+    description: Trigger Release CLI
+    value: ENABLED
+    options:
+      - "ENABLED"
+      - "DISABLED"
+  TRIGGER_SHELLCHECK:
+    description: Trigger ShellCheck
+    value: ENABLED
+    options:
+      - "ENABLED"
+      - "DISABLED"
 
 .build:
   extends: .docker-build-multi
   variables:
-    DOCKER_PROXY_HOST: "ghcr.io"
     PLATFORM: "linux/arm64,linux/amd64"
-    DOCKER_ARGS: >-
-      --build-arg ALPINE_VERSION=${ALPINE_VERSION}
 
 amd64:
   extends: .docker-build-amd64
   variables:
-    DOCKER_PROXY_HOST: "ghcr.io"
-    DOCKER_ARGS: >-
-      --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
     HEALTH_CHECK_UUID: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
 
 arm64:
   extends: .docker-build-arm64
   variables:
-    DOCKER_PROXY_HOST: "ghcr.io"
-    DOCKER_ARGS: >-
-      --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
     HEALTH_CHECK_UUID: 0141d21d-9e28-41be-9924-798180f50a40
 
 multi:
@@ -45,7 +78,6 @@ multi:
     DOCKER_IMAGE_CACHE_FROM: ${DOCKER_IMAGE_CACHE}
     DOKCER_IMAGE_CACHE_TO: ${DOCKER_IMAGE_CACHE}
     DOCKER_ARGS: >-
-      --build-arg=ALPINE_VERSION=${ALPINE_VERSION}
       --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:amd64
       --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:arm64
     DOCKER_TAGS: >-
@@ -58,6 +90,7 @@ release:
   variables:
     DOCKER_HUB: "ENABLED"
     DOCKER_IMAGE: ${DOCKER_IMAGE_PATH}:${CI_COMMIT_TAG}
+    DOCKER_BUILDX_CACHE_ENABLED: 0
     DOCKER_TAGS: >-
       --tag=${DOCKER_IMAGE_HUB_PATH}:${CI_COMMIT_TAG}
   only:
@@ -65,105 +98,140 @@ release:
 
 bumpver:
   stage: trigger
-  only:
-    - main
-    - schedules
   inherit:
-    variables: false
+    variables:
+      - CI_PIPELINE_SOURCE
+      - CI_REGISTRY
+      - CI_PROJECT_PATH
+      - TRIGGER_BUMPVER
+  rules:
+    - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+    - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+    - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
   variables:
-    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
+    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
   trigger:
     forward:
-      yaml_variables: false
+      yaml_variables: true
       pipeline_variables: false
     project: tools/bumpver
 
 chkver:
   stage: trigger
-  only:
-    - main
-    - schedules
   inherit:
-    variables: false
+    variables:
+      - CI_PIPELINE_SOURCE
+      - CI_REGISTRY
+      - CI_PROJECT_PATH
+      - TRIGGER_CHKVER
+  rules:
+    - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+    - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+    - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
   variables:
-    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
+    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
   trigger:
     forward:
-      yaml_variables: false
+      yaml_variables: true
       pipeline_variables: false
     project: tools/chkver
 
 git-conventional-commits:
   stage: trigger
-  only:
-    - main
-    - schedules
   inherit:
-    variables: false
+    variables:
+      - CI_PIPELINE_SOURCE
+      - CI_REGISTRY
+      - CI_PROJECT_PATH
+      - TRIGGER_GIT_CONVENTIONAL_COMMITS
+  rules:
+    - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+    - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+    - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
   variables:
-    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
+    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
   trigger:
     forward:
-      yaml_variables: false
+      yaml_variables: true
       pipeline_variables: false
     project: tools/git-conventional-commits
 
 github-cli:
   stage: trigger
-  only:
-    - main
-    - schedules
   inherit:
-    variables: false
+    variables:
+      - CI_PIPELINE_SOURCE
+      - CI_REGISTRY
+      - CI_PROJECT_PATH
+      - TRIGGER_GITHUB_CLI
+  rules:
+    - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+    - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+    - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
   variables:
-    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
+    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
   trigger:
     forward:
-      yaml_variables: false
+      yaml_variables: true
       pipeline_variables: false
     project: tools/github-cli
 
 publish:
   stage: trigger
-  only:
-    - main
-    - schedules
   inherit:
-    variables: false
+    variables:
+      - CI_PIPELINE_SOURCE
+      - CI_REGISTRY
+      - CI_PROJECT_PATH
+      - TRIGGER_PUBLISH
+  rules:
+    - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+    - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+    - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
   variables:
-    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
+    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
   trigger:
     forward:
-      yaml_variables: false
+      yaml_variables: true
       pipeline_variables: false
     project: tools/publish
 
 release-cli:
   stage: trigger
-  only:
-    - main
-    - schedules
   inherit:
-    variables: false
+    variables:
+      - CI_PIPELINE_SOURCE
+      - CI_REGISTRY
+      - CI_PROJECT_PATH
+      - TRIGGER_RELEASE_CLI
+  rules:
+    - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+    - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+    - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
   variables:
-    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
+    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
   trigger:
     forward:
-      yaml_variables: false
+      yaml_variables: true
       pipeline_variables: false
     project: tools/release-cli
 
 shellcheck:
   stage: trigger
-  only:
-    - main
-    - schedules
   inherit:
-    variables: false
+    variables:
+      - CI_PIPELINE_SOURCE
+      - CI_REGISTRY
+      - CI_PROJECT_PATH
+      - TRIGGER_SHELLCHECK
+  rules:
+    - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+    - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+    - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
   variables:
-    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
+    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
   trigger:
     forward:
-      yaml_variables: false
+      yaml_variables: true
       pipeline_variables: false
     project: tools/shellcheck

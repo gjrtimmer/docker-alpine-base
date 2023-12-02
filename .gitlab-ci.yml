@@ -63,36 +63,6 @@ release:
   only:
     - tags
 
-alpine-glibc:
-  stage: trigger
-  only:
-    - main
-    - schedules
-  inherit:
-    variables: false
-  variables:
-    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
-  trigger:
-    forward:
-      yaml_variables: false
-      pipeline_variables: false
-    project: docker/alpine-glibc
-
-alpine-sdk:
-  stage: trigger
-  only:
-    - main
-    - schedules
-  inherit:
-    variables: false
-  variables:
-    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
-  trigger:
-    forward:
-      yaml_variables: false
-      pipeline_variables: false
-    project: docker/alpine-sdk
-
 bumpver:
   stage: trigger
   only:
@@ -197,33 +167,3 @@ shellcheck:
       yaml_variables: false
       pipeline_variables: false
     project: tools/shellcheck
-
-postgresql:
-  stage: trigger
-  only:
-    - main
-    - schedules
-  inherit:
-    variables: false
-  variables:
-    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
-  trigger:
-    forward:
-      yaml_variables: false
-      pipeline_variables: false
-    project: docker/postgresql
-
-redis:
-  stage: trigger
-  only:
-    - main
-    - schedules
-  inherit:
-    variables: false
-  variables:
-    DOCKER_IMAGE_BASE: ${DOCKER_IMAGE_CACHE}
-  trigger:
-    forward:
-      yaml_variables: false
-      pipeline_variables: false
-    project: docker/redis

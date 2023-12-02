@@ -14,6 +14,7 @@ RUN apk add --no-cache --force-overwrite --update \
     shadow \
     findutils \
     openssl \
+    jq \
     ca-certificates && \
     update-ca-certificates && \
     mkdir /work

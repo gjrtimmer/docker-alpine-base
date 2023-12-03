@@ -33,6 +33,12 @@ variables:
     options:
       - "ENABLED"
       - "DISABLED"
+  TRIGGER_GITLAB_CLI:
+    description: Trigger GitLab CLI
+    value: ENABLED
+    options:
+      - "ENABLED"
+      - "DISABLED"
   TRIGGER_PUBLISH:
     description: Trigger Publish
     value: ENABLED
@@ -175,6 +181,26 @@ github-cli:
       yaml_variables: true
       pipeline_variables: false
     project: tools/github-cli
+
+gitlab-cli:
+  stage: trigger
+  inherit:
+    variables:
+      - CI_PIPELINE_SOURCE
+      - CI_REGISTRY
+      - CI_PROJECT_PATH
+      - TRIGGER_GITLAB_CLI
+  rules:
+    - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+    - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+    - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
+  variables:
+    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
+  trigger:
+    forward:
+      yaml_variables: true
+      pipeline_variables: false
+    project: tools/gitlab-cli
 
 publish:
   stage: trigger

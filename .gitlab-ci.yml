@@ -8,7 +8,6 @@ stages:
   - trigger
 
 variables:
-  DOCKER_BUILDX_PIPELINE: $CI_PIPELINE_ID
   TRIGGER_BUMPVER:
     description: Trigger Bump Version
     value: ENABLED

@@ -5,6 +5,7 @@ RUN apk add --no-cache --force-overwrite --update \
     wget \
     bash \
     coreutils \
+    findutils \
     git \
     git-lfs \
     tar \

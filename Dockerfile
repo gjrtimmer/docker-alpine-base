@@ -17,6 +17,7 @@ RUN apk add --no-cache --force-overwrite --update \
     openssl \
     jq \
     yq \
+    moreutils \
     ca-certificates && \
     update-ca-certificates && \
     mkdir /work

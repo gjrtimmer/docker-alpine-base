@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json
 include:
   # Build AMD64
-  - component: $CI_SERVER_FQDN/templates/components/docker/amd64@0.5.3
+  - component: $CI_SERVER_FQDN/templates/components/docker/amd64@0.6.0
     inputs:
       rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
@@ -9,7 +9,7 @@ include:
       healthcheck: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
 
   # Build ARM64
-  - component: $CI_SERVER_FQDN/templates/components/docker/arm64@0.5.3
+  - component: $CI_SERVER_FQDN/templates/components/docker/arm64@0.6.0
     inputs:
       rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
@@ -17,7 +17,7 @@ include:
       healthcheck: 0141d21d-9e28-41be-9924-798180f50a40
 
   # Build MultiArch
-  - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.5.3
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.6.0
     inputs:
       rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

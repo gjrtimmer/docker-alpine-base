@@ -1,7 +1,33 @@
 # yaml-language-server: $schema=https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json
 include:
-  - project: templates/ci
-    file: default.yml
+  - component: $CI_SERVER_FQDN/templates/components/docker/amd64@0.5.2
+    inputs:
+      rules:
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+        - if: $CI_PIPELINE_SOURCE == "schedule"
+      healthcheck: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
+  - component: $CI_SERVER_FQDN/templates/components/docker/arm64@0.5.2
+    inputs:
+      rules:
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+        - if: $CI_PIPELINE_SOURCE == "schedule"
+      healthcheck: 0141d21d-9e28-41be-9924-798180f50a40
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.5.2
+    inputs:
+      rules:
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+        - if: $CI_PIPELINE_SOURCE == "schedule"
+      needs:
+        - docker:amd64
+        - docker:arm64
+      healthcheck: bd7741c6-2147-4e21-8e83-141a60973760
+      dockerhub: true
+      args: >-
+        --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:amd64
+        --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:arm64
+      tags: >-
+        --tag=${DOCKER_IMAGE_PATH}:latest
+        --tag=${DOCKER_IMAGE_HUB_PATH}:latest
 
 stages:
   - build
@@ -56,48 +82,6 @@ variables:
     options:
       - "ENABLED"
       - "DISABLED"
-
-.build:
-  extends: .docker-build-multi
-  variables:
-    PLATFORM: "linux/arm64,linux/amd64"
-
-amd64:
-  extends: .docker-build-amd64
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-  variables:
-    HEALTH_CHECK_UUID: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
-
-arm64:
-  extends: .docker-build-arm64
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-  variables:
-    HEALTH_CHECK_UUID: 0141d21d-9e28-41be-9924-798180f50a40
-
-multi:
-  extends: .build
-  needs:
-    - amd64
-    - arm64
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-  variables:
-    PLATFORM: "linux/arm64,linux/amd64"
-    DOCKER_HUB: "ENABLED"
-    DOCKER_IMAGE_CACHE_FROM: ${DOCKER_IMAGE_CACHE}
-    DOKCER_IMAGE_CACHE_TO: ${DOCKER_IMAGE_CACHE}
-    DOCKER_ARGS: >-
-      --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:amd64
-      --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:arm64
-    DOCKER_TAGS: >-
-      --tag=${DOCKER_IMAGE_PATH}:latest
-      --tag=${DOCKER_IMAGE_HUB_PATH}:latest
-    HEALTH_CHECK_UUID: bd7741c6-2147-4e21-8e83-141a60973760
 
 release:
   extends: .build

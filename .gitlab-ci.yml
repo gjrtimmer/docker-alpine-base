@@ -8,7 +8,6 @@ include:
         - if: $CI_PIPELINE_SOURCE == "schedule"
         - if: $CI_PIPELINE_SOURCE == "push"
       healthcheck: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
-      uuid: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
 
   # Build ARM64
   - component: $CI_SERVER_FQDN/templates/components/docker/arm64@0.6.1

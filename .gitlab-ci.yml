@@ -6,6 +6,7 @@ include:
       rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
         - if: $CI_PIPELINE_SOURCE == "schedule"
+        - if: $CI_PIPELINE_SOURCE == "push"
       healthcheck: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
 
   # Build ARM64
@@ -14,6 +15,7 @@ include:
       rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
         - if: $CI_PIPELINE_SOURCE == "schedule"
+        - if: $CI_PIPELINE_SOURCE == "push"
       healthcheck: 0141d21d-9e28-41be-9924-798180f50a40
 
   # Build MultiArch
@@ -22,6 +24,7 @@ include:
       rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
         - if: $CI_PIPELINE_SOURCE == "schedule"
+        - if: $CI_PIPELINE_SOURCE == "push"
       needs:
         - docker:amd64
         - docker:arm64

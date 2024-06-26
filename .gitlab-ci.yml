@@ -59,56 +59,55 @@ include:
 stages:
   - build
   - trigger
-
-variables:
-  # TRIGGER_BUMPVER:
-  #   description: Trigger Bump Version
-  #   value: ENABLED
-  #   options:
-  #     - "ENABLED"
-  #     - "DISABLED"
-  TRIGGER_CHKVER:
-    description: Trigger Check Version
-    value: ENABLED
-    options:
-      - "ENABLED"
-      - "DISABLED"
-  # TRIGGER_GIT_CONVENTIONAL_COMMITS:
-  #   description: Trigger Git Conventional Commits
-  #   value: ENABLED
-  #   options:
-  #     - "ENABLED"
-  #     - "DISABLED"
-  # TRIGGER_GITHUB_CLI:
-  #   description: Trigger GitHub CLI
-  #   value: ENABLED
-  #   options:
-  #     - "ENABLED"
-  #     - "DISABLED"
-  # TRIGGER_GITLAB_CLI:
-  #   description: Trigger GitLab CLI
-  #   value: ENABLED
-  #   options:
-  #     - "ENABLED"
-  #     - "DISABLED"
-  # TRIGGER_PUBLISH:
-  #   description: Trigger Publish
-  #   value: ENABLED
-  #   options:
-  #     - "ENABLED"
-  #     - "DISABLED"
-  # TRIGGER_RELEASE_CLI:
-  #   description: Trigger Release CLI
-  #   value: ENABLED
-  #   options:
-  #     - "ENABLED"
-  #     - "DISABLED"
-  # TRIGGER_SHELLCHECK:
-  #   description: Trigger ShellCheck
-  #   value: ENABLED
-  #   options:
-  #     - "ENABLED"
-  #     - "DISABLED"
+# variables:
+# TRIGGER_BUMPVER:
+#   description: Trigger Bump Version
+#   value: ENABLED
+#   options:
+#     - "ENABLED"
+#     - "DISABLED"
+# TRIGGER_CHKVER:
+#   description: Trigger Check Version
+#   value: ENABLED
+#   options:
+#     - "ENABLED"
+#     - "DISABLED"
+# TRIGGER_GIT_CONVENTIONAL_COMMITS:
+#   description: Trigger Git Conventional Commits
+#   value: ENABLED
+#   options:
+#     - "ENABLED"
+#     - "DISABLED"
+# TRIGGER_GITHUB_CLI:
+#   description: Trigger GitHub CLI
+#   value: ENABLED
+#   options:
+#     - "ENABLED"
+#     - "DISABLED"
+# TRIGGER_GITLAB_CLI:
+#   description: Trigger GitLab CLI
+#   value: ENABLED
+#   options:
+#     - "ENABLED"
+#     - "DISABLED"
+# TRIGGER_PUBLISH:
+#   description: Trigger Publish
+#   value: ENABLED
+#   options:
+#     - "ENABLED"
+#     - "DISABLED"
+# TRIGGER_RELEASE_CLI:
+#   description: Trigger Release CLI
+#   value: ENABLED
+#   options:
+#     - "ENABLED"
+#     - "DISABLED"
+# TRIGGER_SHELLCHECK:
+#   description: Trigger ShellCheck
+#   value: ENABLED
+#   options:
+#     - "ENABLED"
+#     - "DISABLED"
 # bumpver:
 #   stage: trigger
 #   inherit:

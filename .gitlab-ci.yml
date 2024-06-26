@@ -53,7 +53,7 @@ include:
     inputs:
       project: tools/bumpver
       variable: TRIGGER_BUMPVER
-      description: "Trigger Bump Version"
+      description: Trigger Bump Version
       stage: trigger
 
 stages:
@@ -73,43 +73,42 @@ variables:
     options:
       - "ENABLED"
       - "DISABLED"
-  TRIGGER_GIT_CONVENTIONAL_COMMITS:
-    description: Trigger Git Conventional Commits
-    value: ENABLED
-    options:
-      - "ENABLED"
-      - "DISABLED"
-  TRIGGER_GITHUB_CLI:
-    description: Trigger GitHub CLI
-    value: ENABLED
-    options:
-      - "ENABLED"
-      - "DISABLED"
-  TRIGGER_GITLAB_CLI:
-    description: Trigger GitLab CLI
-    value: ENABLED
-    options:
-      - "ENABLED"
-      - "DISABLED"
-  TRIGGER_PUBLISH:
-    description: Trigger Publish
-    value: ENABLED
-    options:
-      - "ENABLED"
-      - "DISABLED"
-  TRIGGER_RELEASE_CLI:
-    description: Trigger Release CLI
-    value: ENABLED
-    options:
-      - "ENABLED"
-      - "DISABLED"
-  TRIGGER_SHELLCHECK:
-    description: Trigger ShellCheck
-    value: ENABLED
-    options:
-      - "ENABLED"
-      - "DISABLED"
-
+  # TRIGGER_GIT_CONVENTIONAL_COMMITS:
+  #   description: Trigger Git Conventional Commits
+  #   value: ENABLED
+  #   options:
+  #     - "ENABLED"
+  #     - "DISABLED"
+  # TRIGGER_GITHUB_CLI:
+  #   description: Trigger GitHub CLI
+  #   value: ENABLED
+  #   options:
+  #     - "ENABLED"
+  #     - "DISABLED"
+  # TRIGGER_GITLAB_CLI:
+  #   description: Trigger GitLab CLI
+  #   value: ENABLED
+  #   options:
+  #     - "ENABLED"
+  #     - "DISABLED"
+  # TRIGGER_PUBLISH:
+  #   description: Trigger Publish
+  #   value: ENABLED
+  #   options:
+  #     - "ENABLED"
+  #     - "DISABLED"
+  # TRIGGER_RELEASE_CLI:
+  #   description: Trigger Release CLI
+  #   value: ENABLED
+  #   options:
+  #     - "ENABLED"
+  #     - "DISABLED"
+  # TRIGGER_SHELLCHECK:
+  #   description: Trigger ShellCheck
+  #   value: ENABLED
+  #   options:
+  #     - "ENABLED"
+  #     - "DISABLED"
 # bumpver:
 #   stage: trigger
 #   inherit:
@@ -130,142 +129,142 @@ variables:
 #       pipeline_variables: false
 #     project: tools/bumpver
 
-chkver:
-  stage: trigger
-  inherit:
-    variables:
-      - CI_PIPELINE_SOURCE
-      - CI_REGISTRY
-      - CI_PROJECT_PATH
-      - TRIGGER_CHKVER
-  rules:
-    - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-    - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-    - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-  variables:
-    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-  trigger:
-    forward:
-      yaml_variables: true
-      pipeline_variables: false
-    project: tools/chkver
+# chkver:
+#   stage: trigger
+#   inherit:
+#     variables:
+#       - CI_PIPELINE_SOURCE
+#       - CI_REGISTRY
+#       - CI_PROJECT_PATH
+#       - TRIGGER_CHKVER
+#   rules:
+#     - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+#     - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+#     - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
+#   variables:
+#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
+#   trigger:
+#     forward:
+#       yaml_variables: true
+#       pipeline_variables: false
+#     project: tools/chkver
 
-git-conventional-commits:
-  stage: trigger
-  inherit:
-    variables:
-      - CI_PIPELINE_SOURCE
-      - CI_REGISTRY
-      - CI_PROJECT_PATH
-      - TRIGGER_GIT_CONVENTIONAL_COMMITS
-  rules:
-    - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-    - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-    - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-  variables:
-    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-  trigger:
-    forward:
-      yaml_variables: true
-      pipeline_variables: false
-    project: tools/git-conventional-commits
+# git-conventional-commits:
+#   stage: trigger
+#   inherit:
+#     variables:
+#       - CI_PIPELINE_SOURCE
+#       - CI_REGISTRY
+#       - CI_PROJECT_PATH
+#       - TRIGGER_GIT_CONVENTIONAL_COMMITS
+#   rules:
+#     - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+#     - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+#     - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
+#   variables:
+#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
+#   trigger:
+#     forward:
+#       yaml_variables: true
+#       pipeline_variables: false
+#     project: tools/git-conventional-commits
 
-github-cli:
-  stage: trigger
-  inherit:
-    variables:
-      - CI_PIPELINE_SOURCE
-      - CI_REGISTRY
-      - CI_PROJECT_PATH
-      - TRIGGER_GITHUB_CLI
-  rules:
-    - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-    - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-    - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-  variables:
-    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-  trigger:
-    forward:
-      yaml_variables: true
-      pipeline_variables: false
-    project: tools/github-cli
+# github-cli:
+#   stage: trigger
+#   inherit:
+#     variables:
+#       - CI_PIPELINE_SOURCE
+#       - CI_REGISTRY
+#       - CI_PROJECT_PATH
+#       - TRIGGER_GITHUB_CLI
+#   rules:
+#     - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+#     - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+#     - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
+#   variables:
+#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
+#   trigger:
+#     forward:
+#       yaml_variables: true
+#       pipeline_variables: false
+#     project: tools/github-cli
 
-gitlab-cli:
-  stage: trigger
-  inherit:
-    variables:
-      - CI_PIPELINE_SOURCE
-      - CI_REGISTRY
-      - CI_PROJECT_PATH
-      - TRIGGER_GITLAB_CLI
-  rules:
-    - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-    - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-    - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-  variables:
-    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-  trigger:
-    forward:
-      yaml_variables: true
-      pipeline_variables: false
-    project: tools/gitlab-cli
+# gitlab-cli:
+#   stage: trigger
+#   inherit:
+#     variables:
+#       - CI_PIPELINE_SOURCE
+#       - CI_REGISTRY
+#       - CI_PROJECT_PATH
+#       - TRIGGER_GITLAB_CLI
+#   rules:
+#     - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+#     - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+#     - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
+#   variables:
+#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
+#   trigger:
+#     forward:
+#       yaml_variables: true
+#       pipeline_variables: false
+#     project: tools/gitlab-cli
 
-publish:
-  stage: trigger
-  inherit:
-    variables:
-      - CI_PIPELINE_SOURCE
-      - CI_REGISTRY
-      - CI_PROJECT_PATH
-      - TRIGGER_PUBLISH
-  rules:
-    - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-    - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-    - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-  variables:
-    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-  trigger:
-    forward:
-      yaml_variables: true
-      pipeline_variables: false
-    project: tools/publish
+# publish:
+#   stage: trigger
+#   inherit:
+#     variables:
+#       - CI_PIPELINE_SOURCE
+#       - CI_REGISTRY
+#       - CI_PROJECT_PATH
+#       - TRIGGER_PUBLISH
+#   rules:
+#     - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+#     - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+#     - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
+#   variables:
+#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
+#   trigger:
+#     forward:
+#       yaml_variables: true
+#       pipeline_variables: false
+#     project: tools/publish
 
-release-cli:
-  stage: trigger
-  inherit:
-    variables:
-      - CI_PIPELINE_SOURCE
-      - CI_REGISTRY
-      - CI_PROJECT_PATH
-      - TRIGGER_RELEASE_CLI
-  rules:
-    - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-    - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-    - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-  variables:
-    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-  trigger:
-    forward:
-      yaml_variables: true
-      pipeline_variables: false
-    project: tools/release-cli
+# release-cli:
+#   stage: trigger
+#   inherit:
+#     variables:
+#       - CI_PIPELINE_SOURCE
+#       - CI_REGISTRY
+#       - CI_PROJECT_PATH
+#       - TRIGGER_RELEASE_CLI
+#   rules:
+#     - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+#     - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+#     - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
+#   variables:
+#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
+#   trigger:
+#     forward:
+#       yaml_variables: true
+#       pipeline_variables: false
+#     project: tools/release-cli
 
-shellcheck:
-  stage: trigger
-  inherit:
-    variables:
-      - CI_PIPELINE_SOURCE
-      - CI_REGISTRY
-      - CI_PROJECT_PATH
-      - TRIGGER_SHELLCHECK
-  rules:
-    - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-    - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-    - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-  variables:
-    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-  trigger:
-    forward:
-      yaml_variables: true
-      pipeline_variables: false
-    project: tools/shellcheck
+# shellcheck:
+#   stage: trigger
+#   inherit:
+#     variables:
+#       - CI_PIPELINE_SOURCE
+#       - CI_REGISTRY
+#       - CI_PROJECT_PATH
+#       - TRIGGER_SHELLCHECK
+#   rules:
+#     - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+#     - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+#     - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
+#   variables:
+#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
+#   trigger:
+#     forward:
+#       yaml_variables: true
+#       pipeline_variables: false
+#     project: tools/shellcheck

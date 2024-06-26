@@ -1,30 +1,27 @@
 # yaml-language-server: $schema=https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json
 include:
-  # Build AMD64
   - component: $CI_SERVER_FQDN/templates/components/docker/amd64@0.7.3
+    rules:
+      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      - if: $CI_PIPELINE_SOURCE == "schedule"
+      - if: $CI_PIPELINE_SOURCE == "push"
     inputs:
-      rules:
-        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-        - if: $CI_PIPELINE_SOURCE == "schedule"
-        - if: $CI_PIPELINE_SOURCE == "push"
       healthcheck-uuid: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
 
-  # Build ARM64
   - component: $CI_SERVER_FQDN/templates/components/docker/arm64@0.7.3
+    rules:
+      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      - if: $CI_PIPELINE_SOURCE == "schedule"
+      - if: $CI_PIPELINE_SOURCE == "push"
     inputs:
-      rules:
-        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-        - if: $CI_PIPELINE_SOURCE == "schedule"
-        - if: $CI_PIPELINE_SOURCE == "push"
       healthcheck-uuid: 0141d21d-9e28-41be-9924-798180f50a40
 
-  # Build MultiArch
   - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.7.3
+    rules:
+      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      - if: $CI_PIPELINE_SOURCE == "schedule"
+      - if: $CI_PIPELINE_SOURCE == "push"
     inputs:
-      rules:
-        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-        - if: $CI_PIPELINE_SOURCE == "schedule"
-        - if: $CI_PIPELINE_SOURCE == "push"
       needs:
         - docker:amd64
         - docker:arm64
@@ -37,12 +34,11 @@ include:
         --tag=${DOCKER_IMAGE_HUB_PATH}:latest
       healthcheck-uuid: bd7741c6-2147-4e21-8e83-141a60973760
 
-  # Release
   - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.7.3
+    rules:
+      - if: $CI_COMMIT_TAG
     inputs:
       name: release
-      rules:
-        - if: $CI_COMMIT_TAG
       dockerhub: true
       cache: false
       tag: ${DOCKER_IMAGE_PATH}:${CI_COMMIT_TAG}

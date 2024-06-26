@@ -7,7 +7,6 @@ include:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
         - if: $CI_PIPELINE_SOURCE == "schedule"
         - if: $CI_PIPELINE_SOURCE == "push"
-      healthcheck: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
 
   # Build ARM64
   - component: $CI_SERVER_FQDN/templates/components/docker/arm64@0.6.1
@@ -16,7 +15,6 @@ include:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
         - if: $CI_PIPELINE_SOURCE == "schedule"
         - if: $CI_PIPELINE_SOURCE == "push"
-      healthcheck: 0141d21d-9e28-41be-9924-798180f50a40
 
   # Build MultiArch
   - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.6.1
@@ -28,7 +26,6 @@ include:
       needs:
         - docker:amd64
         - docker:arm64
-      healthcheck: bd7741c6-2147-4e21-8e83-141a60973760
       dockerhub: true
       args: >-
         --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:amd64

@@ -45,17 +45,28 @@ include:
       tags: >-
         --tag=${DOCKER_IMAGE_HUB_PATH}:${CI_COMMIT_TAG}
 
+  - component: $CI_SERVER_FQDN/templates/components/condition/trigger-docker@main
+    rules:
+      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      - if: $CI_PIPELINE_SOURCE == "schedule"
+      - if: $CI_PIPELINE_SOURCE == "push"
+    inputs:
+      project: tools/bumpver
+      variable: TRIGGER_BUMPVER
+      description: "Trigger Bump Version"
+      stage: trigger
+
 stages:
   - build
   - trigger
 
 variables:
-  TRIGGER_BUMPVER:
-    description: Trigger Bump Version
-    value: ENABLED
-    options:
-      - "ENABLED"
-      - "DISABLED"
+  # TRIGGER_BUMPVER:
+  #   description: Trigger Bump Version
+  #   value: ENABLED
+  #   options:
+  #     - "ENABLED"
+  #     - "DISABLED"
   TRIGGER_CHKVER:
     description: Trigger Check Version
     value: ENABLED
@@ -99,25 +110,25 @@ variables:
       - "ENABLED"
       - "DISABLED"
 
-bumpver:
-  stage: trigger
-  inherit:
-    variables:
-      - CI_PIPELINE_SOURCE
-      - CI_REGISTRY
-      - CI_PROJECT_PATH
-      - TRIGGER_BUMPVER
-  rules:
-    - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-    - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-    - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-  variables:
-    UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-  trigger:
-    forward:
-      yaml_variables: true
-      pipeline_variables: false
-    project: tools/bumpver
+# bumpver:
+#   stage: trigger
+#   inherit:
+#     variables:
+#       - CI_PIPELINE_SOURCE
+#       - CI_REGISTRY
+#       - CI_PROJECT_PATH
+#       - TRIGGER_BUMPVER
+#   rules:
+#     - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
+#     - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
+#     - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
+#   variables:
+#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
+#   trigger:
+#     forward:
+#       yaml_variables: true
+#       pipeline_variables: false
+#     project: tools/bumpver
 
 chkver:
   stage: trigger

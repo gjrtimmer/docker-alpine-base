@@ -23,7 +23,7 @@ RUN apk add --no-cache --force-overwrite --update \
     mkdir /work
 
 # Compress Image
-FROM scratch as runtime
+FROM scratch AS runtime
 COPY --from=0 / /
 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \

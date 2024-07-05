@@ -2,34 +2,34 @@
 stages:
   - build
   - deploy
-  - trigger
+
+variables:
+  DOCKER_COMPONENT_VERSION: 0.9.5
 
 include:
   - component: $CI_SERVER_FQDN/templates/components/publish/live@0.1.0
-  - component: $CI_SERVER_FQDN/templates/components/docker/amd64@0.9.5
+
+  # amd64/latest
+  - component: $CI_SERVER_FQDN/templates/components/docker/amd64@$DOCKER_COMPONENT_VERSION
     rules:
-      - if: $CI_COMMIT_TAG
-        when: never
       - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       - if: $CI_PIPELINE_SOURCE == "schedule"
       - if: $CI_PIPELINE_SOURCE == "push"
     inputs:
       healthcheck-uuid: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
 
-  - component: $CI_SERVER_FQDN/templates/components/docker/arm64@0.9.5
+  # arm64/latest
+  - component: $CI_SERVER_FQDN/templates/components/docker/arm64@$DOCKER_COMPONENT_VERSION
     rules:
-      - if: $CI_COMMIT_TAG
-        when: never
       - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       - if: $CI_PIPELINE_SOURCE == "schedule"
       - if: $CI_PIPELINE_SOURCE == "push"
     inputs:
       healthcheck-uuid: 0141d21d-9e28-41be-9924-798180f50a40
 
-  - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.9.5
+  # multi/latest
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@$DOCKER_COMPONENT_VERSION
     rules:
-      - if: $CI_COMMIT_TAG
-        when: never
       - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       - if: $CI_PIPELINE_SOURCE == "schedule"
       - if: $CI_PIPELINE_SOURCE == "push"
@@ -46,222 +46,44 @@ include:
         --tag=${DOCKER_IMAGE_HUB_PATH}:latest
       healthcheck-uuid: bd7741c6-2147-4e21-8e83-141a60973760
 
-  - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.9.5
+  # multi/3.18
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@$DOCKER_COMPONENT_VERSION
     rules:
-      - if: $CI_COMMIT_TAG
+      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      - if: $CI_PIPELINE_SOURCE == "schedule"
+      - if: $CI_PIPELINE_SOURCE == "push"
     inputs:
-      name: release
+      name: "multiarch:3.18"
+      dockerfile: Dockerfile.318
       dockerhub: true
-      cache: false
-      tag: ${DOCKER_IMAGE_PATH}:${CI_COMMIT_TAG}
       tags: >-
-        --tag=${DOCKER_IMAGE_HUB_PATH}:${CI_COMMIT_TAG}
+        --tag=${DOCKER_IMAGE_PATH}:3.18
+        --tag=${DOCKER_IMAGE_HUB_PATH}:3.18
 
-# variables:
-#   TRIGGER_BUMPVER:
-#     description: Trigger Bump Version
-#     value: ENABLED
-#     options:
-#       - "ENABLED"
-#       - "DISABLED"
-#   TRIGGER_CHKVER:
-#     description: Trigger Check Version
-#     value: ENABLED
-#     options:
-#       - "ENABLED"
-#       - "DISABLED"
-#   TRIGGER_GIT_CONVENTIONAL_COMMITS:
-#     description: Trigger Git Conventional Commits
-#     value: ENABLED
-#     options:
-#       - "ENABLED"
-#       - "DISABLED"
-#   TRIGGER_GITHUB_CLI:
-#     description: Trigger GitHub CLI
-#     value: ENABLED
-#     options:
-#       - "ENABLED"
-#       - "DISABLED"
-#   TRIGGER_GITLAB_CLI:
-#     description: Trigger GitLab CLI
-#     value: ENABLED
-#     options:
-#       - "ENABLED"
-#       - "DISABLED"
-#   TRIGGER_PUBLISH:
-#     description: Trigger Publish
-#     value: ENABLED
-#     options:
-#       - "ENABLED"
-#       - "DISABLED"
-#   TRIGGER_RELEASE_CLI:
-#     description: Trigger Release CLI
-#     value: ENABLED
-#     options:
-#       - "ENABLED"
-#       - "DISABLED"
-#   TRIGGER_SHELLCHECK:
-#     description: Trigger ShellCheck
-#     value: ENABLED
-#     options:
-#       - "ENABLED"
-#       - "DISABLED"
-# bumpver:
-#   stage: trigger
-#   inherit:
-#     variables:
-#       - CI_PIPELINE_SOURCE
-#       - CI_REGISTRY
-#       - CI_PROJECT_PATH
-#       - TRIGGER_BUMPVER
-#   rules:
-#     - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-#     - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-#     - if: $TRIGGER_BUMPVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-#   variables:
-#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-#   trigger:
-#     forward:
-#       yaml_variables: true
-#       pipeline_variables: false
-#     project: tools/bumpver
+  # multi/3.19
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@$DOCKER_COMPONENT_VERSION
+    rules:
+      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      - if: $CI_PIPELINE_SOURCE == "schedule"
+      - if: $CI_PIPELINE_SOURCE == "push"
+    inputs:
+      name: "multiarch:3.19"
+      dockerfile: Dockerfile.319
+      dockerhub: true
+      tags: >-
+        --tag=${DOCKER_IMAGE_PATH}:3.19
+        --tag=${DOCKER_IMAGE_HUB_PATH}:3.19
 
-# chkver:
-#   stage: trigger
-#   inherit:
-#     variables:
-#       - CI_PIPELINE_SOURCE
-#       - CI_REGISTRY
-#       - CI_PROJECT_PATH
-#       - TRIGGER_CHKVER
-#   rules:
-#     - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-#     - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-#     - if: $TRIGGER_CHKVER == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-#   variables:
-#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-#   trigger:
-#     forward:
-#       yaml_variables: true
-#       pipeline_variables: false
-#     project: tools/chkver
-
-# git-conventional-commits:
-#   stage: trigger
-#   inherit:
-#     variables:
-#       - CI_PIPELINE_SOURCE
-#       - CI_REGISTRY
-#       - CI_PROJECT_PATH
-#       - TRIGGER_GIT_CONVENTIONAL_COMMITS
-#   rules:
-#     - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-#     - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-#     - if: $TRIGGER_GIT_CONVENTIONAL_COMMITS == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-#   variables:
-#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-#   trigger:
-#     forward:
-#       yaml_variables: true
-#       pipeline_variables: false
-#     project: tools/git-conventional-commits
-
-# github-cli:
-#   stage: trigger
-#   inherit:
-#     variables:
-#       - CI_PIPELINE_SOURCE
-#       - CI_REGISTRY
-#       - CI_PROJECT_PATH
-#       - TRIGGER_GITHUB_CLI
-#   rules:
-#     - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-#     - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-#     - if: $TRIGGER_GITHUB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-#   variables:
-#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-#   trigger:
-#     forward:
-#       yaml_variables: true
-#       pipeline_variables: false
-#     project: tools/github-cli
-
-# gitlab-cli:
-#   stage: trigger
-#   inherit:
-#     variables:
-#       - CI_PIPELINE_SOURCE
-#       - CI_REGISTRY
-#       - CI_PROJECT_PATH
-#       - TRIGGER_GITLAB_CLI
-#   rules:
-#     - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-#     - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-#     - if: $TRIGGER_GITLAB_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-#   variables:
-#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-#   trigger:
-#     forward:
-#       yaml_variables: true
-#       pipeline_variables: false
-#     project: tools/gitlab-cli
-
-# publish:
-#   stage: trigger
-#   inherit:
-#     variables:
-#       - CI_PIPELINE_SOURCE
-#       - CI_REGISTRY
-#       - CI_PROJECT_PATH
-#       - TRIGGER_PUBLISH
-#   rules:
-#     - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-#     - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-#     - if: $TRIGGER_PUBLISH == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-#   variables:
-#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-#   trigger:
-#     forward:
-#       yaml_variables: true
-#       pipeline_variables: false
-#     project: tools/publish
-
-# release-cli:
-#   stage: trigger
-#   inherit:
-#     variables:
-#       - CI_PIPELINE_SOURCE
-#       - CI_REGISTRY
-#       - CI_PROJECT_PATH
-#       - TRIGGER_RELEASE_CLI
-#   rules:
-#     - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-#     - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-#     - if: $TRIGGER_RELEASE_CLI == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-#   variables:
-#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-#   trigger:
-#     forward:
-#       yaml_variables: true
-#       pipeline_variables: false
-#     project: tools/release-cli
-
-# shellcheck:
-#   stage: trigger
-#   inherit:
-#     variables:
-#       - CI_PIPELINE_SOURCE
-#       - CI_REGISTRY
-#       - CI_PROJECT_PATH
-#       - TRIGGER_SHELLCHECK
-#   rules:
-#     - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'push'
-#     - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'schedule'
-#     - if: $TRIGGER_SHELLCHECK == 'ENABLED' && $CI_PIPELINE_SOURCE == 'web'
-#   variables:
-#     UPSTREAM_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}
-#   trigger:
-#     forward:
-#       yaml_variables: true
-#       pipeline_variables: false
-#     project: tools/shellcheck
+  # multi/3.20
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@$DOCKER_COMPONENT_VERSION
+    rules:
+      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      - if: $CI_PIPELINE_SOURCE == "schedule"
+      - if: $CI_PIPELINE_SOURCE == "push"
+    inputs:
+      name: "multiarch:3.20"
+      dockerfile: Dockerfile.320
+      dockerhub: true
+      tags: >-
+        --tag=${DOCKER_IMAGE_PATH}:3.20
+        --tag=${DOCKER_IMAGE_HUB_PATH}:3.20

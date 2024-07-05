@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM harbor.local/docker.io/alpine:3.18
 
 RUN apk add --no-cache --force-overwrite --update \
     curl \

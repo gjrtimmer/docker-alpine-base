@@ -3,14 +3,11 @@ stages:
   - build
   - deploy
 
-variables:
-  DOCKER_COMPONENT_VERSION: 0.9.5
-
 include:
   - component: $CI_SERVER_FQDN/templates/components/publish/live@0.1.0
 
   # amd64/latest
-  - component: $CI_SERVER_FQDN/templates/components/docker/amd64@$DOCKER_COMPONENT_VERSION
+  - component: $CI_SERVER_FQDN/templates/components/docker/amd64@0.9.5
     rules:
       - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -19,7 +16,7 @@ include:
       healthcheck-uuid: 924a29da-5f4d-41ff-9547-1e506ddc7cb2
 
   # arm64/latest
-  - component: $CI_SERVER_FQDN/templates/components/docker/arm64@$DOCKER_COMPONENT_VERSION
+  - component: $CI_SERVER_FQDN/templates/components/docker/arm64@0.9.5
     rules:
       - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -28,7 +25,7 @@ include:
       healthcheck-uuid: 0141d21d-9e28-41be-9924-798180f50a40
 
   # multi/latest
-  - component: $CI_SERVER_FQDN/templates/components/docker/multi@$DOCKER_COMPONENT_VERSION
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.9.5
     rules:
       - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -47,7 +44,7 @@ include:
       healthcheck-uuid: bd7741c6-2147-4e21-8e83-141a60973760
 
   # multi/3.18
-  - component: $CI_SERVER_FQDN/templates/components/docker/multi@$DOCKER_COMPONENT_VERSION
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.9.5
     rules:
       - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -61,7 +58,7 @@ include:
         --tag=${DOCKER_IMAGE_HUB_PATH}:3.18
 
   # multi/3.19
-  - component: $CI_SERVER_FQDN/templates/components/docker/multi@$DOCKER_COMPONENT_VERSION
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.9.5
     rules:
       - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -75,7 +72,7 @@ include:
         --tag=${DOCKER_IMAGE_HUB_PATH}:3.19
 
   # multi/3.20
-  - component: $CI_SERVER_FQDN/templates/components/docker/multi@$DOCKER_COMPONENT_VERSION
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@0.9.5
     rules:
       - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       - if: $CI_PIPELINE_SOURCE == "schedule"

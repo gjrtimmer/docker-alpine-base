@@ -22,7 +22,6 @@ include:
       needs:
         - docker:amd64
         - docker:arm64
-      dockerhub: true
       args: >-
         --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:amd64
         --cache-from=type=registry,ref=${DOCKER_IMAGE_CACHE_PATH}:arm64
@@ -36,7 +35,6 @@ include:
     inputs:
       name: "multiarch:3.18"
       dockerfile: Dockerfile.318
-      dockerhub: true
       tags: >-
         --tag=${DOCKER_IMAGE_PATH}:3.18
         --tag=${DOCKER_IMAGE_HUB_PATH}:3.18
@@ -46,7 +44,6 @@ include:
     inputs:
       name: "multiarch:3.19"
       dockerfile: Dockerfile.319
-      dockerhub: true
       tags: >-
         --tag=${DOCKER_IMAGE_PATH}:3.19
         --tag=${DOCKER_IMAGE_HUB_PATH}:3.19
@@ -56,7 +53,6 @@ include:
     inputs:
       name: "multiarch:3.20"
       dockerfile: Dockerfile.320
-      dockerhub: true
       tags: >-
         --tag=${DOCKER_IMAGE_PATH}:3.20
         --tag=${DOCKER_IMAGE_HUB_PATH}:3.20

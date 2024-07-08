@@ -36,8 +36,8 @@ include:
     inputs:
       name: "multiarch:3.18"
       dockerfile: Dockerfile.318
+      tag: ${DOCKER_IMAGE_PATH}:3.18
       tags: >-
-        --tag=${DOCKER_IMAGE_PATH}:3.18
         --tag=${DOCKER_IMAGE_HUB_PATH}:3.18
 
   # multi/3.19
@@ -45,8 +45,8 @@ include:
     inputs:
       name: "multiarch:3.19"
       dockerfile: Dockerfile.319
+      tag: ${DOCKER_IMAGE_PATH}:3.19
       tags: >-
-        --tag=${DOCKER_IMAGE_PATH}:3.19
         --tag=${DOCKER_IMAGE_HUB_PATH}:3.19
 
   # multi/3.20
@@ -54,6 +54,6 @@ include:
     inputs:
       name: "multiarch:3.20"
       dockerfile: Dockerfile.320
+      tag: ${DOCKER_IMAGE_PATH}:3.20
       tags: >-
-        --tag=${DOCKER_IMAGE_PATH}:3.20
         --tag=${DOCKER_IMAGE_HUB_PATH}:3.20

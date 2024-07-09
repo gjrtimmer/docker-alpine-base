@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json
 include:
   - component: $CI_SERVER_FQDN/templates/components/workflow/default@0.1.1
-  - component: $CI_SERVER_FQDN/templates/components/publish/live@0.4.0
+  - component: $CI_SERVER_FQDN/templates/components/publish/live@0.5.0
 
   # amd64/latest
   - component: $CI_SERVER_FQDN/templates/components/docker/amd64@1.3.0

@@ -11,5 +11,17 @@
   ],
   "assignees": [
     "gjrtimmer"
+  ],
+  "packageRules": [
+    {
+      "description": "Bypass Image Versions",
+      "enabled": false,
+      "matchFileNames": [
+        "Dockerfile.3*"
+      ],
+      "matchDatasources": [
+        "docker"
+      ]
+    }
   ]
 }

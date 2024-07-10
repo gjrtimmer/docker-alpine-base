@@ -8,5 +8,8 @@
     "workarounds:all",
     "local>templates/renovate-config",
     "local>templates/renovate-config:security"
+  ],
+  "assignees": [
+    "gjrtimmer"
   ]
 }

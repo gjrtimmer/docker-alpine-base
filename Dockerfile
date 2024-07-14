@@ -22,6 +22,8 @@ RUN apk add --no-cache --force-overwrite --update \
     update-ca-certificates && \
     mkdir /work
 
+RUN mkdir -p /var/run/s6 /run/s6 /run/s6/container_environment
+
 # Compress Image
 FROM scratch AS runtime
 COPY --from=0 / /

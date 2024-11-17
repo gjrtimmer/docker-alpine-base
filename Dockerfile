@@ -1,5 +1,7 @@
-FROM harbor.local/docker.io/alpine:latest
+# hadolint ignore=DL3007
+FROM harbor.local/docker.io/alpine:latest AS builder
 
+# hadolint ignore=DL3018
 RUN apk add --no-cache --force-overwrite --update \
     curl \
     wget \
@@ -26,7 +28,7 @@ RUN mkdir -p /var/run/s6 /run/s6 /run/s6/container_environment
 
 # Compress Image
 FROM scratch AS runtime
-COPY --from=0 / /
+COPY --from=builder / /
 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
     PS1="$(whoami)@$(hostname):$(pwd)\\$ " \

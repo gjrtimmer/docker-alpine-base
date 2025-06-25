@@ -10,7 +10,6 @@ RUN apk add --no-cache --force-overwrite --update \
     coreutils \
     findutils \
     git \
-    git-lfs \
     tar \
     gzip \
     bzip2 \

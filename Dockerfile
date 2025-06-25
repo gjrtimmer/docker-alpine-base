@@ -1,5 +1,6 @@
-# hadolint ignore=DL3007
-FROM harbor.local/docker.io/alpine:latest AS builder
+ARG TARGETARCH
+# hadolint ignore=DL3007,DL3029
+FROM --platform=linux/${TARGETARCH} harbor.local/docker.io/alpine:latest AS builder
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache --force-overwrite --update \

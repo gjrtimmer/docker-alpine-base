@@ -3,9 +3,9 @@ include:
   - component: $CI_SERVER_FQDN/templates/components/workflow/default@0.4.0
   - component: $CI_SERVER_FQDN/templates/components/publish/live@0.8.0
   - component: $CI_SERVER_FQDN/templates/components/renovate/renovate@0.9.0
-  - component: $CI_SERVER_FQDN/templates/components/docker/amd64@1.9.0
-  - component: $CI_SERVER_FQDN/templates/components/docker/arm64@1.9.0
-  - component: $CI_SERVER_FQDN/templates/components/docker/multi@1.9.0
+  - component: $CI_SERVER_FQDN/templates/components/docker/amd64@1.10.0
+  - component: $CI_SERVER_FQDN/templates/components/docker/arm64@1.10.0
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@1.10.0
     inputs:
       needs:
         - docker:amd64
@@ -16,7 +16,7 @@ include:
       tags: >-
         --tag=$DOCKER_IMAGE_PATH:latest
         --tag=$DOCKER_IMAGE_HUB_PATH:latest
-  - component: $CI_SERVER_FQDN/templates/components/docker/multi@1.9.0
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@1.10.0
     inputs:
       name: "multiarch:3.18"
       dockerfile: Dockerfile.318
@@ -24,7 +24,7 @@ include:
       tag: $DOCKER_IMAGE_PATH:3.18
       tags: >-
         --tag=$DOCKER_IMAGE_HUB_PATH:3.18
-  - component: $CI_SERVER_FQDN/templates/components/docker/multi@1.9.0
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@1.10.0
     inputs:
       name: "multiarch:3.19"
       dockerfile: Dockerfile.319
@@ -32,7 +32,7 @@ include:
       tag: $DOCKER_IMAGE_PATH:3.19
       tags: >-
         --tag=$DOCKER_IMAGE_HUB_PATH:3.19
-  - component: $CI_SERVER_FQDN/templates/components/docker/multi@1.9.0
+  - component: $CI_SERVER_FQDN/templates/components/docker/multi@1.10.0
     inputs:
       name: "multiarch:3.20"
       dockerfile: Dockerfile.320
